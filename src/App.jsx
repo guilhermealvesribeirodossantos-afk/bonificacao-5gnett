@@ -75,6 +75,7 @@ export default function App() {
               </span>
               Atendimentos
             </button>
+
             <button className="menu-item" id="menuNovoAtendimento">
               <span>
                 ＋
@@ -117,15 +118,7 @@ export default function App() {
         </aside>
         <main className="main">
           <header className="topbar topbar-corporativa">
-            <div className="search-box busca-global">
-              <span>
-                ⌕
-              </span>
-              <input
-                type="text"
-                id="pesquisa"
-                placeholder="Pesquisar cliente, código, cidade ou atendente..." />
-            </div>
+
             {/* BOTÃO DE TEMA */}
             <button
               className="btn-tema"
@@ -353,6 +346,16 @@ export default function App() {
                 <h2>
                   ▤ Atendimentos
                 </h2>
+
+                <div className="search-box busca-global">
+                  <span>
+                    ⌕
+                  </span>
+                  <input
+                    type="text"
+                    id="pesquisa"
+                    placeholder="Pesquisar cliente, código, cidade ou atendente..." />
+                </div>
                 <p>
                   Consulte, filtre, edite e visualize todos os atendimentos registrados.
                 </p>

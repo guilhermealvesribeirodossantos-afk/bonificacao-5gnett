@@ -65,13 +65,13 @@ export default function App() {
           <nav className="menu">
             <button className="menu-item active" id="menuInicio">
               <span>
-                ⌂
+                🏠︎
               </span>
               Início
             </button>
             <button className="menu-item" id="menuAtendimentos">
               <span>
-                ▤
+                📝
               </span>
               Atendimentos
             </button>
@@ -84,7 +84,7 @@ export default function App() {
             </button>
             <button className="menu-item" id="menuEquipe">
               <span>
-                ◉
+                🤝🏻
               </span>
               Equipe
             </button>
@@ -96,13 +96,13 @@ export default function App() {
             </button>
             <button className="menu-item menu-gerencia" id="menuRelatorios" data-gerencia="true">
               <span>
-                ▥
+                📊
               </span>
               Relatórios
             </button>
             <button className="menu-item menu-gerencia" id="menuConfiguracoes" data-gerencia="true">
               <span>
-                ⚙
+                ⚙️
               </span>
               Configurações
             </button>
@@ -282,7 +282,7 @@ export default function App() {
                     onClick={() =>
                       document.getElementById("menuAtendimentos")?.click()} >
                     <span className="workspace-action-icon">
-                      ▤
+                      📝
                     </span>
                     <span>
                       <strong>
@@ -344,7 +344,7 @@ export default function App() {
             <section className="page-header">
               <div>
                 <h2>
-                  ▤ Atendimentos
+                  📝 Atendimentos
                 </h2>
 
                 <div className="search-box busca-global">

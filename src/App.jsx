@@ -365,13 +365,31 @@ export default function App() {
 
 
               
+
+
+              
+              
     <button className="btn-novo" id="btnNovoAtendimento" type="button" > ＋ Novo Atendimento </button>
 
+                <button className="menu-item" id="menuNovoAtendimento">
+              <span>
+                ＋
+              </span>
+              Novo Atendimento
+            </button>
+
 
 
 
               
               
+
+
+
+              
+
+
+
               
             </section>
             <section className="filtros filtros-operacionais">

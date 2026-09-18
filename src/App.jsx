@@ -362,18 +362,15 @@ export default function App() {
               </div>
 
 
+
+
               
-         <button
-  className="btn-novo"
-  id="btnNovoAtendimento"
-  type="button"
-  onClick={handleNovoAtendimento}
->
-  ＋ Novo Atendimento
-</button>
+    <button className="btn-novo" id="btnNovoAtendimento" type="button" > ＋ Novo Atendimento </button>
 
 
 
+
+              
               
               
             </section>

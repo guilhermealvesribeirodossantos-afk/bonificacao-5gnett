@@ -360,13 +360,22 @@ export default function App() {
                   Consulte, filtre, edite e visualize todos os atendimentos registrados.
                 </p>
               </div>
-              <button
-                className="btn-novo"
-                id="btnNovoAtendimento"
-                type="button"
-              >
-                ＋ Novo Atendimento
-              </button>
+
+
+              
+         <button
+  className="btn-novo"
+  id="btnNovoAtendimento"
+  type="button"
+  onClick={handleNovoAtendimento}
+>
+  ＋ Novo Atendimento
+</button>
+
+
+
+              
+              
             </section>
             <section className="filtros filtros-operacionais">
               <div className="campo">

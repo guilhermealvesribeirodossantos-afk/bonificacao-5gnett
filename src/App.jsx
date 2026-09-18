@@ -177,7 +177,7 @@ export default function App() {
                 </div>
                 <button
                   className="btn-novo dashboard-cta"
-                  id="btnNovoAtendimentoInicio"
+                  id="btnNovoAtendimento"
                   type="button"
                 >
                   ＋ Registrar atendimento

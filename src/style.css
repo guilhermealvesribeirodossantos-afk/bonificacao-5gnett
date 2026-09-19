@@ -9790,3 +9790,101 @@ body.tema-claro .sidebar-footer-slogan-v3 {
 }
 
 
+
+/* =========================================================
+   5GNETT — HOTFIX SIDEBAR DESKTOP
+   Corrige rolagem, espaçamento e cadeados deslocados
+   ========================================================= */
+
+@media (min-width: 821px) {
+  .sidebar {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(64, 139, 195, .42) transparent;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(64, 139, 195, .42);
+  }
+
+  .logo.logo-corporativa-v2 {
+    flex: 0 0 auto;
+    margin-bottom: 16px !important;
+    padding-bottom: 18px !important;
+  }
+
+  .menu-profissional-v3 {
+    flex: 0 0 auto;
+    gap: 3px !important;
+  }
+
+  .menu-profissional-v3 .menu-item {
+    min-height: 54px !important;
+  }
+
+  .menu-profissional-v3 .menu-item::before {
+    left: -21px !important;
+  }
+
+  .menu-divisor-gerencia-v3 {
+    margin-top: 10px !important;
+    padding-top: 17px !important;
+  }
+
+  /* Neutraliza estilos antigos que tratavam qualquer span do menu como ícone */
+  .menu-profissional-v3 .menu-item > span.menu-acoes-v3 {
+    width: auto !important;
+    min-width: 54px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    font-size: inherit !important;
+    text-align: right !important;
+  }
+
+  .menu-profissional-v3 .menu-acoes-v3 .menu-lock-v3 {
+    position: static !important;
+    display: inline-flex !important;
+    width: 16px !important;
+    min-width: 16px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  .menu-profissional-v3 .menu-acoes-v3 .menu-seta-v3 {
+    position: static !important;
+    display: inline-block !important;
+    width: 14px !important;
+    min-width: 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 27px !important;
+    line-height: 1 !important;
+  }
+
+  .sidebar-footer-profissional-v3 {
+    flex: 0 0 auto;
+    margin-top: 22px !important;
+    min-height: 92px !important;
+  }
+}
+

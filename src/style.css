@@ -9948,3 +9948,54 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — SCROLLBAR DISCRETA DA SIDEBAR
+   Mantém a rolagem, mas sem a faixa azul chamativa
+   ========================================================= */
+
+@media (min-width: 821px) {
+  .sidebar {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(76, 112, 138, 0.16) transparent !important;
+  }
+
+  .sidebar:hover {
+    scrollbar-color: rgba(76, 142, 190, 0.42) transparent !important;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    min-height: 42px;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: rgba(76, 112, 138, 0.14) !important;
+  }
+
+  .sidebar:hover::-webkit-scrollbar-thumb {
+    background: rgba(76, 142, 190, 0.40) !important;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(86, 166, 222, 0.58) !important;
+  }
+
+  .sidebar::-webkit-scrollbar-button {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
+  .sidebar::-webkit-scrollbar-corner {
+    background: transparent !important;
+  }
+}
+

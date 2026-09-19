@@ -8695,3 +8695,170 @@ body.tema-claro #modalAvaliacao .fechar-modal:hover {
     min-height: 70px
   }
 }
+
+
+
+/* =========================================================
+   5GNETT — IDENTIDADE PROFISSIONAL DA SIDEBAR V2
+   ========================================================= */
+
+.logo.logo-corporativa-v2 {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 0 2px 20px;
+  padding: 10px 9px 18px;
+}
+
+.logo.logo-corporativa-v2::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 143, 255, 0.7),
+    rgba(20, 143, 255, 0.16) 55%,
+    transparent
+  );
+}
+
+.logo-marca-v2 {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(53, 151, 235, 0.38);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 0 0 4px rgba(15, 126, 226, 0.07),
+    0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+.logo.logo-corporativa-v2 .logo-marca-v2 img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  padding: 3px;
+}
+
+.logo-identidade-v2 {
+  min-width: 0;
+}
+
+.logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+  margin: 0;
+  color: #f5f9fd;
+  font-size: 21px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0.8px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
+}
+
+.logo.logo-corporativa-v2 .logo-identidade-v2 > span {
+  display: block;
+  margin-top: 6px;
+  color: #8197aa;
+  font-size: 7px;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: 1.45px;
+  white-space: nowrap;
+}
+
+.logo-status-v2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.logo-status-v2 i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #21d981;
+  box-shadow: 0 0 0 3px rgba(33, 217, 129, 0.08), 0 0 10px rgba(33, 217, 129, 0.45);
+}
+
+.logo-status-v2 strong {
+  color: #38df91;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 1.15px;
+}
+
+/* Tema claro */
+body.tema-claro .logo.logo-corporativa-v2::after {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 121, 216, 0.58),
+    rgba(15, 121, 216, 0.12) 55%,
+    transparent
+  );
+}
+
+body.tema-claro .logo-marca-v2 {
+  border-color: #cbdce9;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 4px rgba(15, 121, 216, 0.04),
+    0 7px 18px rgba(31, 58, 82, 0.10);
+}
+
+body.tema-claro .logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+  color: #172333;
+  text-shadow: none;
+}
+
+body.tema-claro .logo.logo-corporativa-v2 .logo-identidade-v2 > span {
+  color: #6f8090;
+}
+
+body.tema-claro .logo-status-v2 strong {
+  color: #15965c;
+}
+
+body.tema-claro .logo-status-v2 i {
+  background: #1fbd73;
+  box-shadow: 0 0 0 3px rgba(31, 189, 115, 0.08);
+}
+
+@media (max-width: 900px) {
+  .logo.logo-corporativa-v2 {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .logo-marca-v2 {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+    font-size: 18px;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 > span {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+
+  .logo-status-v2 strong {
+    font-size: 7px;
+    letter-spacing: 0.8px;
+  }
+}
+

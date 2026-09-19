@@ -2118,12 +2118,30 @@ export default function App() {
                   Cidade *
                 </label>
 
-                <input
-                  type="text"
+                <select
                   id="cidade"
-                  placeholder="Ex: Caxambu"
                   required
-                />
+                >
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Caxambu">
+                    Caxambu
+                  </option>
+
+                  <option value="Baependi">
+                    Baependi
+                  </option>
+
+                  <option value="Cruzília">
+                    Cruzília
+                  </option>
+
+                  <option value="Zona Rural">
+                    Zona Rural
+                  </option>
+                </select>
               </div>
 
               <div className="campo campo-grande">

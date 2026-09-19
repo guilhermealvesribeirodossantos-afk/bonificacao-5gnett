@@ -5,6 +5,7 @@ import logo from "./assets/logo 5gnett.png";
 import perfil from "./assets/perfil.png";
 
 export default function App() {
+  const [gerenciaVisualLiberada, setGerenciaVisualLiberada] = useState(false);
   const [servicoAberto, setServicoAberto] = useState(false);
   const [servicoBusca, setServicoBusca] = useState("");
   const [servicoSelecionado, setServicoSelecionado] = useState("");
@@ -108,6 +109,27 @@ export default function App() {
       window.removeEventListener("scroll", reposicionar, true);
     };
   }, [servicoAberto]);
+
+  useEffect(() => {
+    const btnSair = document.getElementById("btnSairGerencia");
+
+    const sincronizarCadeadosGerencia = () => {
+      if (!btnSair) return;
+      setGerenciaVisualLiberada(!btnSair.hidden);
+    };
+
+    sincronizarCadeadosGerencia();
+
+    if (!btnSair) return undefined;
+
+    const observer = new MutationObserver(sincronizarCadeadosGerencia);
+    observer.observe(btnSair, {
+      attributes: true,
+      attributeFilter: ["hidden", "style", "class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // =====================================================
@@ -215,7 +237,7 @@ export default function App() {
               <span className="menu-icone-v3 menu-trofeu-v3">🏆</span>
               <strong>Bonificação</strong>
               <span className="menu-acoes-v3">
-                <b className="menu-lock-v3">🔒</b>
+                {!gerenciaVisualLiberada && <b className="menu-lock-v3">🔒</b>}
                 <i className="menu-seta-v3">›</i>
               </span>
             </button>
@@ -224,7 +246,7 @@ export default function App() {
               <span className="menu-icone-v3">📊</span>
               <strong>Relatórios</strong>
               <span className="menu-acoes-v3">
-                <b className="menu-lock-v3">🔒</b>
+                {!gerenciaVisualLiberada && <b className="menu-lock-v3">🔒</b>}
                 <i className="menu-seta-v3">›</i>
               </span>
             </button>
@@ -233,7 +255,7 @@ export default function App() {
               <span className="menu-icone-v3">⚙️</span>
               <strong>Configurações</strong>
               <span className="menu-acoes-v3">
-                <b className="menu-lock-v3">🔒</b>
+                {!gerenciaVisualLiberada && <b className="menu-lock-v3">🔒</b>}
                 <i className="menu-seta-v3">›</i>
               </span>
             </button>

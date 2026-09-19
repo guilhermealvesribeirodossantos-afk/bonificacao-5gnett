@@ -11803,3 +11803,297 @@ body.tema-claro .btn-login-gerencia-premium-v6 {
     display: none !important;
   }
 }
+
+/* =========================================================
+   5GNETT — TOPBAR V6.2 / CORREÇÃO LIMPA E COMPACTA
+   Corrige exclusivamente o bloco Equipe + Admin do V6.
+   ========================================================= */
+
+@media (min-width: 1181px) {
+  .topbar.topbar-corporativa {
+    min-height: 88px !important;
+    height: 88px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    border-bottom: 1px solid rgba(47, 79, 101, .38) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .usuario-premium-v6 {
+    margin-left: auto !important;
+    height: 88px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 26px !important;
+    overflow: visible !important;
+  }
+
+  .usuario-identidade-v6 {
+    height: 88px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  .avatar-premium-v6 {
+    width: 68px !important;
+    height: 68px !important;
+    flex: 0 0 68px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: 0 0 18px rgba(0, 143, 255, .12) !important;
+  }
+
+  .avatar-premium-v6 .usuario-foto {
+    width: 68px !important;
+    height: 68px !important;
+    display: block !important;
+    object-fit: contain !important;
+    border-radius: 50% !important;
+  }
+
+  .usuario-divisor-v6 {
+    width: 1px !important;
+    height: 48px !important;
+    flex: 0 0 1px !important;
+    margin: 0 2px !important;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(77, 119, 149, .50) 18%,
+      rgba(77, 119, 149, .50) 82%,
+      transparent
+    ) !important;
+  }
+
+  .usuario-info-premium-v6 {
+    width: 245px !important;
+    min-width: 245px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    overflow: visible !important;
+  }
+
+  .usuario-info-premium-v6 > strong {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    color: #f4f8fb !important;
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -.35px !important;
+    white-space: nowrap !important;
+  }
+
+  .usuario-info-premium-v6 > strong b {
+    color: #f4f8fb !important;
+    font-weight: 950 !important;
+  }
+
+  .usuario-info-premium-v6 > strong b em {
+    color: #079eff !important;
+    font-style: normal !important;
+    text-shadow: 0 0 12px rgba(0, 151, 255, .22) !important;
+  }
+
+  .usuario-info-premium-v6 > #usuarioPerfil {
+    display: block !important;
+    margin: 5px 0 0 !important;
+    color: #8194a3 !important;
+    font-size: 7px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 2.25px !important;
+    white-space: nowrap !important;
+  }
+
+  .usuario-status-v6 {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 9px !important;
+    margin: 8px 0 0 !important;
+    height: 22px !important;
+  }
+
+  .usuario-online-v6 {
+    height: 22px !important;
+    min-height: 22px !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 0 9px !important;
+    border: 1px solid rgba(22, 220, 133, .62) !important;
+    border-radius: 999px !important;
+    background: rgba(7, 91, 58, .20) !important;
+    color: #29e99c !important;
+    font-size: 7px !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: 1px !important;
+    box-shadow: none !important;
+  }
+
+  .usuario-online-v6 i {
+    width: 5px !important;
+    height: 5px !important;
+    flex: 0 0 5px !important;
+    border-radius: 50% !important;
+    background: #25e898 !important;
+    box-shadow: 0 0 7px rgba(37, 232, 152, .75) !important;
+  }
+
+  .usuario-status-divisor-v6 {
+    width: 1px !important;
+    height: 15px !important;
+    flex: 0 0 1px !important;
+    background: rgba(92, 124, 147, .38) !important;
+  }
+
+  .usuario-status-v6 small {
+    color: #788b9a !important;
+    font-size: 6px !important;
+    font-style: italic !important;
+    font-weight: 750 !important;
+    line-height: 1 !important;
+    letter-spacing: 1.15px !important;
+    white-space: nowrap !important;
+  }
+
+  .btn-login-gerencia-premium-v6 {
+    width: 188px !important;
+    min-width: 188px !important;
+    height: 54px !important;
+    margin: 0 !important;
+    padding: 0 12px 0 15px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 201, 30, .76) !important;
+    border-radius: 11px !important;
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255, 197, 30, .10), transparent 48%),
+      linear-gradient(180deg, rgba(24, 22, 12, .98), rgba(10, 11, 9, .99)) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.035),
+      0 6px 16px rgba(0,0,0,.18) !important;
+  }
+
+  .btn-login-gerencia-premium-v6:hover {
+    transform: translateY(-1px) !important;
+    border-color: rgba(255, 213, 61, .95) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.05),
+      0 8px 20px rgba(0,0,0,.22),
+      0 0 15px rgba(255,193,7,.06) !important;
+  }
+
+  .admin-coroa-v6 {
+    width: 27px !important;
+    flex: 0 0 27px !important;
+    color: #ffd342 !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    text-align: center !important;
+  }
+
+  .admin-texto-v6 {
+    width: 82px !important;
+    min-width: 82px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 3px !important;
+  }
+
+  .admin-texto-v6 strong {
+    color: #ffd84b !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: -.15px !important;
+  }
+
+  .admin-texto-v6 small {
+    color: #8e9aa3 !important;
+    font-size: 5.5px !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+    letter-spacing: 1.15px !important;
+    white-space: nowrap !important;
+  }
+
+  .admin-divisor-v6 {
+    width: 1px !important;
+    height: 32px !important;
+    flex: 0 0 1px !important;
+    margin-left: auto !important;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 208, 48, .28),
+      transparent
+    ) !important;
+  }
+
+  .admin-seta-v6 {
+    width: 13px !important;
+    flex: 0 0 13px !important;
+    color: #eec334 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    text-align: center !important;
+  }
+}
+
+/* Tema claro — mantém a mesma geometria */
+body.tema-claro .usuario-info-premium-v6 > strong,
+body.tema-claro .usuario-info-premium-v6 > strong b {
+  color: #17232c !important;
+}
+
+body.tema-claro .btn-login-gerencia-premium-v6 {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 196, 0, .11), transparent 48%),
+    linear-gradient(180deg, #fffef9, #f8f7f1) !important;
+  box-shadow: 0 6px 16px rgba(43, 59, 70, .08) !important;
+}
+
+/* Notebook: preserva o layout sem esmagar o conteúdo */
+@media (max-width: 1380px) and (min-width: 1181px) {
+  .usuario-premium-v6 {
+    gap: 18px !important;
+  }
+
+  .usuario-info-premium-v6 {
+    width: 215px !important;
+    min-width: 215px !important;
+  }
+
+  .btn-login-gerencia-premium-v6 {
+    width: 174px !important;
+    min-width: 174px !important;
+  }
+}

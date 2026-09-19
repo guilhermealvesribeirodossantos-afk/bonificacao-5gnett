@@ -9601,3 +9601,192 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — SIDEBAR DESKTOP DEFINITIVA
+   Prioridade: computador / notebook
+   ========================================================= */
+
+@media (min-width: 821px) {
+  html,
+  body,
+  #root {
+    min-width: 1180px;
+  }
+
+  .app {
+    display: grid !important;
+    grid-template-columns: 330px minmax(0, 1fr) !important;
+  }
+
+  .sidebar {
+    width: 330px !important;
+    min-width: 330px !important;
+    height: 100vh;
+    min-height: 100vh !important;
+    position: sticky !important;
+    top: 0;
+    overflow: hidden;
+    padding: 24px 20px 20px !important;
+  }
+
+  .logo.logo-corporativa-v2 {
+    grid-template-columns: 64px minmax(0, 1fr) !important;
+    gap: 17px !important;
+    margin: 0 3px 25px !important;
+    padding: 11px 5px 25px !important;
+  }
+
+  .logo-marca-v2 {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 {
+    overflow: visible !important;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+    font-size: 27px !important;
+    white-space: nowrap;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 > span {
+    font-size: 8px !important;
+    letter-spacing: 1.75px !important;
+    white-space: nowrap !important;
+  }
+
+  .logo-status-v2 {
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  .logo-status-v2 strong {
+    font-size: 9px !important;
+    white-space: nowrap !important;
+  }
+
+  .menu-profissional-v3 {
+    gap: 7px !important;
+    overflow: visible !important;
+  }
+
+  .menu-profissional-v3 .menu-item {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 62px !important;
+    grid-template-columns: 44px minmax(0, 1fr) auto !important;
+    column-gap: 15px !important;
+    padding: 0 17px !important;
+    overflow: visible !important;
+  }
+
+  .menu-profissional-v3 .menu-item strong {
+    font-size: 16px !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
+
+  .menu-profissional-v3 .menu-icone-v3 {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 25px !important;
+  }
+
+  .menu-profissional-v3 .menu-add-v3 {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 24px !important;
+  }
+
+  .menu-profissional-v3 .menu-seta-v3 {
+    display: block !important;
+    width: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 29px !important;
+  }
+
+  .menu-profissional-v3 .menu-acoes-v3 {
+    display: flex !important;
+    width: auto !important;
+    min-width: 53px;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 13px !important;
+  }
+
+  .menu-profissional-v3 .menu-lock-v3 {
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 16px;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+
+  .menu-divisor-gerencia-v3 {
+    margin: 18px 7px 5px !important;
+    padding-top: 22px !important;
+  }
+
+  .menu-divisor-gerencia-v3 span {
+    width: auto !important;
+    font-size: 9px !important;
+    letter-spacing: 2.3px !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar-footer-profissional-v3 {
+    width: 100% !important;
+    min-height: 104px !important;
+    margin-top: auto !important;
+    padding: 18px 17px !important;
+    grid-template-columns: minmax(105px, 1fr) auto auto !important;
+    gap: 13px !important;
+  }
+
+  .sidebar-footer-marca-v3 strong {
+    font-size: 17px !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar-footer-marca-v3 span {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar-footer-slogan-v3 {
+    display: block !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+  }
+
+  .main {
+    min-width: 0 !important;
+  }
+}
+
+/* Em desktop largo, aproxima ainda mais a proporção da referência */
+@media (min-width: 1450px) {
+  .app {
+    grid-template-columns: 350px minmax(0, 1fr) !important;
+  }
+
+  .sidebar {
+    width: 350px !important;
+    min-width: 350px !important;
+    padding-left: 23px !important;
+    padding-right: 23px !important;
+  }
+
+  .menu-profissional-v3 .menu-item strong {
+    font-size: 17px !important;
+  }
+}
+
+

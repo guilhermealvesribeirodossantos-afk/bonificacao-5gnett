@@ -62,15 +62,19 @@ export default function App() {
     <>
       <div className="app">
         <aside className="sidebar">
-          <div className="logo">
-            <img src={logo} alt="5GNETT" />
+          <div className="logo logo-corporativa-v2">
+            <div className="logo-marca-v2">
+              <img src={logo} alt="5GNETT" />
+            </div>
 
-            <div>
+            <div className="logo-identidade-v2">
               <h1>5GNETT</h1>
+              <span>CENTRAL OPERACIONAL</span>
 
-              <span>
-                CENTRAL OPERACIONAL
-              </span>
+              <div className="logo-status-v2">
+                <i></i>
+                <strong>OPERAÇÃO ATIVA</strong>
+              </div>
             </div>
           </div>
 

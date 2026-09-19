@@ -1,10 +1,66 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { initializeLegacyApp } from "./legacyLoader";
 import logo from "./assets/logo 5gnett.png";
 import perfil from "./assets/perfil.png";
 
 export default function App() {
+  const [servicoAberto, setServicoAberto] = useState(false);
+  const [servicoBusca, setServicoBusca] = useState("");
+  const [servicoSelecionado, setServicoSelecionado] = useState("");
+
+  const gruposServico = [
+    {
+      titulo: "SUPORTE FIBRA",
+      opcoes: ["Suporte Fibra", "Sem Acesso Fibra", "Lentidão Fibra", "Rompimento de Fibra", "Urgente Fibra"],
+    },
+    {
+      titulo: "SUPORTE RÁDIO / RURAL",
+      opcoes: ["Suporte Rural", "Sem Acesso Rádio", "Lentidão Rádio", "Urgente Rádio", "Sinal Alto"],
+    },
+    {
+      titulo: "MANUTENÇÃO / REDE",
+      opcoes: ["Manutenção Caixa", "Manutenção de Rede", "Manutenção Torre Rádio"],
+    },
+    {
+      titulo: "SUPORTE INTERNO",
+      opcoes: ["Suporte Tec Interno - Análise"],
+    },
+    {
+      titulo: "OUTROS SUPORTES",
+      opcoes: ["Suporte técnico", "Sem conexão", "Lentidão", "Configuração", "Outros"],
+    },
+  ];
+
+  const normalizarBuscaServico = (valor) =>
+    valor
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+  const gruposServicoFiltrados = gruposServico
+    .map((grupo) => ({
+      ...grupo,
+      opcoes: grupo.opcoes.filter((opcao) =>
+        normalizarBuscaServico(opcao).includes(normalizarBuscaServico(servicoBusca))
+      ),
+    }))
+    .filter((grupo) => grupo.opcoes.length > 0);
+
+  const selecionarServico = (servico) => {
+    setServicoSelecionado(servico);
+    setServicoBusca("");
+    setServicoAberto(false);
+
+    requestAnimationFrame(() => {
+      const select = document.getElementById("servico");
+      if (select) {
+        select.value = servico;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+  };
+
   useEffect(() => {
     // =====================================================
     // TEMA CLARO / ESCURO
@@ -2181,50 +2237,85 @@ export default function App() {
                   Tipo de serviço *
                 </label>
 
-                <select
-                  id="servico"
-                  required
-                >
-                  <option value="">
-                    Selecione
-                  </option>
+                <div className={`servico-combobox ${servicoAberto ? "aberto" : ""}`}>
+                  <button
+                    type="button"
+                    className="servico-combobox-trigger"
+                    onClick={() => setServicoAberto((aberto) => !aberto)}
+                    aria-expanded={servicoAberto}
+                  >
+                    <span className={servicoSelecionado ? "selecionado" : ""}>
+                      {servicoSelecionado || "Selecione"}
+                    </span>
+                    <span className="servico-combobox-seta" aria-hidden="true">⌄</span>
+                  </button>
 
-                  <optgroup label="SUPORTE FIBRA">
-                    <option value="Suporte Fibra">Suporte Fibra</option>
-                    <option value="Sem Acesso Fibra">Sem Acesso Fibra</option>
-                    <option value="Lentidão Fibra">Lentidão Fibra</option>
-                    <option value="Rompimento de Fibra">Rompimento de Fibra</option>
-                    <option value="Urgente Fibra">Urgente Fibra</option>
-                  </optgroup>
+                  {servicoAberto && (
+                    <div className="servico-combobox-menu">
+                      <div className="servico-combobox-busca">
+                        <span aria-hidden="true">⌕</span>
+                        <input
+                          type="text"
+                          value={servicoBusca}
+                          onChange={(event) => setServicoBusca(event.target.value)}
+                          placeholder="Filtrar tipo de serviço..."
+                          autoFocus
+                        />
+                      </div>
 
-                  <optgroup label="SUPORTE RÁDIO / RURAL">
-                    <option value="Suporte Rural">Suporte Rural</option>
-                    <option value="Sem Acesso Rádio">Sem Acesso Rádio</option>
-                    <option value="Lentidão Rádio">Lentidão Rádio</option>
-                    <option value="Urgente Rádio">Urgente Rádio</option>
-                    <option value="Sinal Alto">Sinal Alto</option>
-                  </optgroup>
+                      <div className="servico-combobox-lista">
+                        {gruposServicoFiltrados.length ? (
+                          gruposServicoFiltrados.map((grupo) => (
+                            <div className="servico-combobox-grupo" key={grupo.titulo}>
+                              <div className="servico-combobox-grupo-titulo">
+                                {grupo.titulo}
+                              </div>
 
-                  <optgroup label="MANUTENÇÃO / REDE">
-                    <option value="Manutenção Caixa">Manutenção Caixa</option>
-                    <option value="Manutenção de Rede">Manutenção de Rede</option>
-                    <option value="Manutenção Torre Rádio">Manutenção Torre Rádio</option>
-                  </optgroup>
+                              {grupo.opcoes.map((opcao) => (
+                                <button
+                                  type="button"
+                                  className={`servico-combobox-opcao ${
+                                    servicoSelecionado === opcao ? "ativo" : ""
+                                  }`}
+                                  key={opcao}
+                                  onClick={() => selecionarServico(opcao)}
+                                >
+                                  <span>{opcao}</span>
+                                  {servicoSelecionado === opcao && (
+                                    <span className="servico-combobox-check" aria-hidden="true">✓</span>
+                                  )}
+                                </button>
+                              ))}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="servico-combobox-vazio">
+                            Nenhum tipo de serviço encontrado.
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
-                  <optgroup label="SUPORTE INTERNO">
-                    <option value="Suporte Tec Interno - Análise">
-                      Suporte Tec Interno - Análise
-                    </option>
-                  </optgroup>
-
-                  <optgroup label="OUTROS SUPORTES">
-                    <option value="Suporte técnico">Suporte técnico</option>
-                    <option value="Sem conexão">Sem conexão</option>
-                    <option value="Lentidão">Lentidão</option>
-                    <option value="Configuração">Configuração</option>
-                    <option value="Outros">Outros</option>
-                  </optgroup>
-                </select>
+                  <select
+                    id="servico"
+                    required
+                    value={servicoSelecionado}
+                    onChange={(event) => setServicoSelecionado(event.target.value)}
+                    className="servico-select-compatibilidade"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  >
+                    <option value="">Selecione</option>
+                    {gruposServico.flatMap((grupo) =>
+                      grupo.opcoes.map((opcao) => (
+                        <option value={opcao} key={`${grupo.titulo}-${opcao}`}>
+                          {opcao}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                </div>
               </div>
 
               <div className="campo">

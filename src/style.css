@@ -10987,3 +10987,55 @@ body.tema-claro .servico-combobox-opcao.ativo {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — COMBOBOX SERVIÇO / ABERTURA AUTOMÁTICA
+   ========================================================= */
+
+/* Por padrão, abre abaixo do campo */
+.servico-combobox.abrir-baixo .servico-combobox-menu {
+  top: calc(100% + 7px);
+  bottom: auto;
+}
+
+/* Quando o React detectar pouco espaço abaixo, abre acima */
+.servico-combobox.abrir-cima .servico-combobox-menu {
+  top: auto;
+  bottom: calc(100% + 7px);
+}
+
+/* A rolagem fica somente nas opções */
+.servico-combobox-menu {
+  max-height: min(440px, calc(100vh - 36px));
+}
+
+.servico-combobox-lista {
+  overscroll-behavior: contain;
+}
+
+/* Mantém a pesquisa visível enquanto percorre as opções */
+.servico-combobox-busca {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Ajuste visual da sombra conforme a direção */
+.servico-combobox.abrir-cima .servico-combobox-menu {
+  box-shadow: 0 -22px 55px rgba(0, 0, 0, 0.48);
+}
+
+.servico-combobox.abrir-baixo .servico-combobox-menu {
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.52);
+}
+
+/* Tema claro */
+body.tema-claro .servico-combobox.abrir-cima .servico-combobox-menu {
+  box-shadow: 0 -20px 50px rgba(30, 57, 78, 0.16);
+}
+
+body.tema-claro .servico-combobox.abrir-baixo .servico-combobox-menu {
+  box-shadow: 0 20px 50px rgba(30, 57, 78, 0.18);
+}
+

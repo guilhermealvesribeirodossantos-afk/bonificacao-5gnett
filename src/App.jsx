@@ -278,7 +278,6 @@ export default function App() {
                       className="usuario-foto"
                     />
                   </span>
-                  <span className="usuario-online-check-v5" aria-label="Online">✓</span>
                 </div>
 
                 <span className="usuario-divisor-v5" aria-hidden="true"></span>

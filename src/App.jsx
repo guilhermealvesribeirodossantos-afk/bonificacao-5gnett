@@ -8,12 +8,8 @@ export default function App() {
   const [servicoAberto, setServicoAberto] = useState(false);
   const [servicoBusca, setServicoBusca] = useState("");
   const [servicoSelecionado, setServicoSelecionado] = useState("");
-  const [servicoMenuPosicao, setServicoMenuPosicao] = useState({
-    top: 0,
-    left: 0,
-    width: 320,
-    maxHeight: 315,
-  });
+  const [servicoDirecao, setServicoDirecao] = useState("baixo");
+  const [servicoAlturaLista, setServicoAlturaLista] = useState(315);
   const servicoComboboxRef = useRef(null);
 
   const gruposServico = [
@@ -59,33 +55,23 @@ export default function App() {
     if (!elemento) return;
 
     const rect = elemento.getBoundingClientRect();
-    const margem = 16;
-    const gap = 7;
-    const alturaBuscaAproximada = 60;
-    const alturaIdealLista = 315;
-    const espacoAbaixo = window.innerHeight - rect.bottom - margem - gap;
-    const espacoAcima = rect.top - margem - gap;
+    const margem = 18;
+    const espacoAbaixo = window.innerHeight - rect.bottom - margem;
+    const espacoAcima = rect.top - margem;
+    const alturaIdeal = 360;
+    const alturaMinima = 190;
 
     const abrirParaCima =
-      espacoAbaixo < 260 && espacoAcima > espacoAbaixo;
+      espacoAbaixo < alturaMinima && espacoAcima > espacoAbaixo;
 
     const espacoDisponivel = abrirParaCima ? espacoAcima : espacoAbaixo;
-    const maxHeight = Math.max(
+    const altura = Math.max(
       150,
-      Math.min(alturaIdealLista, espacoDisponivel - alturaBuscaAproximada)
+      Math.min(alturaIdeal, espacoDisponivel - 72)
     );
 
-    const alturaMenuEstimada = maxHeight + alturaBuscaAproximada;
-    const top = abrirParaCima
-      ? Math.max(margem, rect.top - gap - alturaMenuEstimada)
-      : Math.min(window.innerHeight - margem - alturaMenuEstimada, rect.bottom + gap);
-
-    setServicoMenuPosicao({
-      top,
-      left: Math.max(margem, Math.min(rect.left, window.innerWidth - rect.width - margem)),
-      width: rect.width,
-      maxHeight,
-    });
+    setServicoDirecao(abrirParaCima ? "cima" : "baixo");
+    setServicoAlturaLista(altura);
   };
 
   const alternarServico = () => {
@@ -282,31 +268,47 @@ export default function App() {
               ☀️
             </button>
 
-            <div className="usuario usuario-corporativo">
-              <div className="avatar">
-                <img
-                  src={perfil}
-                  alt="Perfil"
-                  className="usuario-foto"
-                />
-              </div>
+            <div className="usuario usuario-corporativo usuario-premium-v4">
+              <div className="usuario-identidade-v4">
+                <div className="avatar avatar-premium-v4">
+                  <img
+                    src={perfil}
+                    alt="Perfil"
+                    className="usuario-foto"
+                  />
+                  <span className="usuario-online-check-v4" aria-label="Online">✓</span>
+                </div>
 
-              <div className="usuario-info">
-                <strong id="usuarioNome">
-                  Equipe 5GNETT
-                </strong>
+                <div className="usuario-info usuario-info-premium-v4">
+                  <strong id="usuarioNome">
+                    Equipe <b>5GNETT</b>
+                  </strong>
 
-                <span id="usuarioPerfil">
-                  Suporte Técnico
-                </span>
+                  <span id="usuarioPerfil">
+                    Suporte Técnico
+                  </span>
+
+                  <div className="usuario-status-v4">
+                    <span className="usuario-online-v4">
+                      <i></i>
+                      ONLINE
+                    </span>
+                    <small>PRONTO PARA ATENDER</small>
+                  </div>
+                </div>
               </div>
 
               <button
-                className="btn-login-gerencia"
+                className="btn-login-gerencia btn-login-gerencia-premium-v4"
                 id="btnLoginGerencia"
                 type="button"
               >
-                🔐 Admin
+                <span className="admin-coroa-v4">♛</span>
+                <span className="admin-texto-v4">
+                  <strong>Admin</strong>
+                  <small>ACESSO TOTAL</small>
+                </span>
+                <span className="admin-seta-v4">⌄</span>
               </button>
 
               <button
@@ -2301,7 +2303,9 @@ export default function App() {
 
                 <div
                   ref={servicoComboboxRef}
-                  className={`servico-combobox ${servicoAberto ? "aberto" : ""}`}
+                  className={`servico-combobox ${servicoAberto ? "aberto" : ""} ${
+                    servicoDirecao === "cima" ? "abrir-cima" : "abrir-baixo"
+                  }`}
                 >
                   <button
                     type="button"
@@ -2316,17 +2320,7 @@ export default function App() {
                   </button>
 
                   {servicoAberto && (
-                    <div
-                      className="servico-combobox-menu servico-combobox-menu-flutuante"
-                      style={{
-                        position: "fixed",
-                        top: `${servicoMenuPosicao.top}px`,
-                        left: `${servicoMenuPosicao.left}px`,
-                        width: `${servicoMenuPosicao.width}px`,
-                        minWidth: 0,
-                        zIndex: 100000,
-                      }}
-                    >
+                    <div className="servico-combobox-menu">
                       <div className="servico-combobox-busca">
                         <span aria-hidden="true">⌕</span>
                         <input
@@ -2340,7 +2334,7 @@ export default function App() {
 
                       <div
                         className="servico-combobox-lista"
-                        style={{ maxHeight: `${servicoMenuPosicao.maxHeight}px` }}
+                        style={{ maxHeight: `${servicoAlturaLista}px` }}
                       >
                         {gruposServicoFiltrados.length ? (
                           gruposServicoFiltrados.map((grupo) => (

@@ -2189,33 +2189,41 @@ export default function App() {
                     Selecione
                   </option>
 
-                  <option value="Suporte técnico">
-                    Suporte técnico
-                  </option>
+                  <optgroup label="SUPORTE FIBRA">
+                    <option value="Suporte Fibra">Suporte Fibra</option>
+                    <option value="Sem Acesso Fibra">Sem Acesso Fibra</option>
+                    <option value="Lentidão Fibra">Lentidão Fibra</option>
+                    <option value="Rompimento de Fibra">Rompimento de Fibra</option>
+                    <option value="Urgente Fibra">Urgente Fibra</option>
+                  </optgroup>
 
-                  <option value="Sem conexão">
-                    Sem conexão
-                  </option>
+                  <optgroup label="SUPORTE RÁDIO / RURAL">
+                    <option value="Suporte Rural">Suporte Rural</option>
+                    <option value="Sem Acesso Rádio">Sem Acesso Rádio</option>
+                    <option value="Lentidão Rádio">Lentidão Rádio</option>
+                    <option value="Urgente Rádio">Urgente Rádio</option>
+                    <option value="Sinal Alto">Sinal Alto</option>
+                  </optgroup>
 
-                  <option value="Rompimento de fibra">
-                    Rompimento de fibra
-                  </option>
+                  <optgroup label="MANUTENÇÃO / REDE">
+                    <option value="Manutenção Caixa">Manutenção Caixa</option>
+                    <option value="Manutenção de Rede">Manutenção de Rede</option>
+                    <option value="Manutenção Torre Rádio">Manutenção Torre Rádio</option>
+                  </optgroup>
 
-                  <option value="Suporte Rural">
-                    Suporte Rural
-                  </option>
+                  <optgroup label="SUPORTE INTERNO">
+                    <option value="Suporte Tec Interno - Análise">
+                      Suporte Tec Interno - Análise
+                    </option>
+                  </optgroup>
 
-                  <option value="Lentidão">
-                    Lentidão
-                  </option>
-
-                  <option value="Configuração">
-                    Configuração
-                  </option>
-
-                  <option value="Outros">
-                    Outros
-                  </option>
+                  <optgroup label="OUTROS SUPORTES">
+                    <option value="Suporte técnico">Suporte técnico</option>
+                    <option value="Sem conexão">Sem conexão</option>
+                    <option value="Lentidão">Lentidão</option>
+                    <option value="Configuração">Configuração</option>
+                    <option value="Outros">Outros</option>
+                  </optgroup>
                 </select>
               </div>
 

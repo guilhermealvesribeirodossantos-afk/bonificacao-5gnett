@@ -8,8 +8,12 @@ export default function App() {
   const [servicoAberto, setServicoAberto] = useState(false);
   const [servicoBusca, setServicoBusca] = useState("");
   const [servicoSelecionado, setServicoSelecionado] = useState("");
-  const [servicoDirecao, setServicoDirecao] = useState("baixo");
-  const [servicoAlturaLista, setServicoAlturaLista] = useState(315);
+  const [servicoMenuPosicao, setServicoMenuPosicao] = useState({
+    top: 0,
+    left: 0,
+    width: 320,
+    maxHeight: 315,
+  });
   const servicoComboboxRef = useRef(null);
 
   const gruposServico = [
@@ -55,23 +59,33 @@ export default function App() {
     if (!elemento) return;
 
     const rect = elemento.getBoundingClientRect();
-    const margem = 18;
-    const espacoAbaixo = window.innerHeight - rect.bottom - margem;
-    const espacoAcima = rect.top - margem;
-    const alturaIdeal = 360;
-    const alturaMinima = 190;
+    const margem = 16;
+    const gap = 7;
+    const alturaBuscaAproximada = 60;
+    const alturaIdealLista = 315;
+    const espacoAbaixo = window.innerHeight - rect.bottom - margem - gap;
+    const espacoAcima = rect.top - margem - gap;
 
     const abrirParaCima =
-      espacoAbaixo < alturaMinima && espacoAcima > espacoAbaixo;
+      espacoAbaixo < 260 && espacoAcima > espacoAbaixo;
 
     const espacoDisponivel = abrirParaCima ? espacoAcima : espacoAbaixo;
-    const altura = Math.max(
+    const maxHeight = Math.max(
       150,
-      Math.min(alturaIdeal, espacoDisponivel - 72)
+      Math.min(alturaIdealLista, espacoDisponivel - alturaBuscaAproximada)
     );
 
-    setServicoDirecao(abrirParaCima ? "cima" : "baixo");
-    setServicoAlturaLista(altura);
+    const alturaMenuEstimada = maxHeight + alturaBuscaAproximada;
+    const top = abrirParaCima
+      ? Math.max(margem, rect.top - gap - alturaMenuEstimada)
+      : Math.min(window.innerHeight - margem - alturaMenuEstimada, rect.bottom + gap);
+
+    setServicoMenuPosicao({
+      top,
+      left: Math.max(margem, Math.min(rect.left, window.innerWidth - rect.width - margem)),
+      width: rect.width,
+      maxHeight,
+    });
   };
 
   const alternarServico = () => {
@@ -2287,9 +2301,7 @@ export default function App() {
 
                 <div
                   ref={servicoComboboxRef}
-                  className={`servico-combobox ${servicoAberto ? "aberto" : ""} ${
-                    servicoDirecao === "cima" ? "abrir-cima" : "abrir-baixo"
-                  }`}
+                  className={`servico-combobox ${servicoAberto ? "aberto" : ""}`}
                 >
                   <button
                     type="button"
@@ -2304,7 +2316,17 @@ export default function App() {
                   </button>
 
                   {servicoAberto && (
-                    <div className="servico-combobox-menu">
+                    <div
+                      className="servico-combobox-menu servico-combobox-menu-flutuante"
+                      style={{
+                        position: "fixed",
+                        top: `${servicoMenuPosicao.top}px`,
+                        left: `${servicoMenuPosicao.left}px`,
+                        width: `${servicoMenuPosicao.width}px`,
+                        minWidth: 0,
+                        zIndex: 100000,
+                      }}
+                    >
                       <div className="servico-combobox-busca">
                         <span aria-hidden="true">⌕</span>
                         <input
@@ -2318,7 +2340,7 @@ export default function App() {
 
                       <div
                         className="servico-combobox-lista"
-                        style={{ maxHeight: `${servicoAlturaLista}px` }}
+                        style={{ maxHeight: `${servicoMenuPosicao.maxHeight}px` }}
                       >
                         {gruposServicoFiltrados.length ? (
                           gruposServicoFiltrados.map((grupo) => (

@@ -1,10 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { initializeLegacyApp } from "./legacyLoader";
 import logo from "./assets/logo 5gnett.png";
 import perfil from "./assets/perfil.png";
 
 export default function App() {
+  const [sidebarAberta, setSidebarAberta] = useState(() => {
+    return localStorage.getItem("5gnett-sidebar-aberta") === "true";
+  });
+
+  const alternarSidebar = () => {
+    setSidebarAberta((aberta) => {
+      const novoEstado = !aberta;
+      localStorage.setItem("5gnett-sidebar-aberta", String(novoEstado));
+      return novoEstado;
+    });
+  };
+
   useEffect(() => {
     // =====================================================
     // TEMA CLARO / ESCURO
@@ -60,8 +72,17 @@ export default function App() {
 
   return (
     <>
-      <div className="app">
-        <aside className="sidebar">
+      <div className={`app app-sidebar-retratil ${sidebarAberta ? "sidebar-aberta" : "sidebar-fechada"}`}>
+        <aside className={`sidebar sidebar-retratil ${sidebarAberta ? "aberta" : "fechada"}`}>
+          <button
+            className="sidebar-puxador"
+            type="button"
+            onClick={alternarSidebar}
+            aria-label={sidebarAberta ? "Fechar menu lateral" : "Abrir menu lateral"}
+            title={sidebarAberta ? "Fechar menu" : "Abrir menu"}
+          >
+            <span>{sidebarAberta ? "‹" : "›"}</span>
+          </button>
           <div className="logo logo-corporativa-v2">
             <div className="logo-marca-v2">
               <img src={logo} alt="5GNETT" />

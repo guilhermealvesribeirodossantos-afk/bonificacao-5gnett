@@ -11426,3 +11426,380 @@ body.tema-claro .admin-texto-v5 small {
     display: none !important;
   }
 }
+
+/* =========================================================
+   5GNETT — TOPBAR PREMIUM V6
+   Inspirado na referência aprovada
+   ========================================================= */
+
+@media (min-width: 1181px) {
+  .topbar.topbar-corporativa {
+    min-height: 132px !important;
+    padding: 0 28px !important;
+    margin: 0 -28px !important;
+    border-bottom: 1px solid rgba(50, 91, 119, .42) !important;
+    background:
+      radial-gradient(circle at 68% 42%, rgba(0, 126, 216, .065), transparent 28%),
+      linear-gradient(180deg, rgba(2, 9, 14, .96), rgba(1, 7, 11, .985)) !important;
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.015);
+  }
+
+  .topbar.topbar-corporativa .btn-tema {
+    flex: 0 0 42px;
+  }
+
+  .usuario-premium-v6 {
+    margin-left: auto;
+    display: flex !important;
+    align-items: center !important;
+    gap: 42px !important;
+  }
+
+  .usuario-identidade-v6 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 22px !important;
+  }
+
+  .avatar-premium-v6 {
+    width: 94px !important;
+    height: 94px !important;
+    flex: 0 0 94px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    box-shadow:
+      0 0 0 1px rgba(23, 158, 255, .18),
+      0 0 26px rgba(0, 143, 255, .20) !important;
+  }
+
+  .avatar-premium-v6 .usuario-foto {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: contain !important;
+    border-radius: 50% !important;
+  }
+
+  .usuario-divisor-v6 {
+    width: 1px;
+    height: 76px;
+    flex: 0 0 1px;
+    background: linear-gradient(180deg,
+      transparent,
+      rgba(94, 135, 164, .58) 20%,
+      rgba(94, 135, 164, .58) 80%,
+      transparent);
+  }
+
+  .usuario-info-premium-v6 {
+    min-width: 360px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+  }
+
+  .usuario-info-premium-v6 > strong {
+    display: flex !important;
+    align-items: baseline;
+    gap: 7px;
+    color: #f6f9fb !important;
+    font-size: 27px !important;
+    font-weight: 780 !important;
+    line-height: 1 !important;
+    letter-spacing: -1px !important;
+    white-space: nowrap;
+  }
+
+  .usuario-info-premium-v6 > strong b {
+    color: #f4f8fb !important;
+    font-weight: 950 !important;
+  }
+
+  .usuario-info-premium-v6 > strong b em {
+    color: #079eff !important;
+    font-style: normal !important;
+    text-shadow: 0 0 18px rgba(0, 151, 255, .28);
+  }
+
+  .usuario-info-premium-v6 > #usuarioPerfil {
+    margin-top: 10px !important;
+    color: #8096a7 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 4px !important;
+  }
+
+  .usuario-status-v6 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin-top: 15px !important;
+  }
+
+  .usuario-online-v6 {
+    height: 31px;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 14px !important;
+    border: 1px solid rgba(21, 229, 139, .72) !important;
+    border-radius: 999px !important;
+    background: linear-gradient(180deg, rgba(3, 96, 59, .34), rgba(3, 54, 36, .28)) !important;
+    color: #28ec9d !important;
+    font-size: 10px !important;
+    font-weight: 950 !important;
+    letter-spacing: 1.5px !important;
+    box-shadow:
+      inset 0 0 14px rgba(19, 220, 133, .08),
+      0 0 14px rgba(19, 220, 133, .08);
+  }
+
+  .usuario-online-v6 i {
+    width: 8px !important;
+    height: 8px !important;
+    flex: 0 0 8px !important;
+    border-radius: 50%;
+    background: #20e894;
+    box-shadow: 0 0 10px rgba(32, 232, 148, .95);
+  }
+
+  .usuario-status-divisor-v6 {
+    width: 1px;
+    height: 24px;
+    background: rgba(92, 124, 147, .46);
+  }
+
+  .usuario-status-v6 small {
+    color: #8193a2 !important;
+    font-size: 9px !important;
+    font-style: italic !important;
+    font-weight: 750 !important;
+    letter-spacing: 2px !important;
+    white-space: nowrap;
+  }
+
+  .btn-login-gerencia-premium-v6 {
+    position: relative;
+    width: 300px !important;
+    height: 82px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 17px !important;
+    padding: 0 19px 0 24px !important;
+    overflow: hidden;
+    border: 1.5px solid rgba(255, 201, 30, .92) !important;
+    border-radius: 16px !important;
+    background:
+      radial-gradient(circle at 35% 10%, rgba(255, 198, 23, .16), transparent 48%),
+      linear-gradient(180deg, rgba(31, 27, 10, .98), rgba(10, 11, 8, .99)) !important;
+    color: #ffd342 !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      inset 0 0 24px rgba(255, 193, 7, .035),
+      0 0 24px rgba(255, 193, 7, .07) !important;
+  }
+
+  .btn-login-gerencia-premium-v6:hover {
+    transform: translateY(-1px);
+    border-color: #ffda4d !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 10px 28px rgba(0,0,0,.30),
+      0 0 28px rgba(255,193,7,.12) !important;
+  }
+
+  .admin-coroa-v6 {
+    width: 42px;
+    flex: 0 0 42px;
+    color: #ffd642 !important;
+    font-size: 34px !important;
+    line-height: 1;
+    text-align: center;
+    filter: drop-shadow(0 0 9px rgba(255, 198, 28, .28));
+  }
+
+  .admin-texto-v6 {
+    min-width: 118px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+  }
+
+  .admin-texto-v6 strong {
+    color: #ffda4d !important;
+    font-size: 23px !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: -.4px;
+  }
+
+  .admin-texto-v6 small {
+    color: #9da9b2 !important;
+    font-size: 8px !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+    letter-spacing: 2px !important;
+  }
+
+  .admin-divisor-v6 {
+    width: 1px;
+    height: 50px;
+    margin-left: auto;
+    background: linear-gradient(180deg, transparent, rgba(255, 209, 53, .38), transparent);
+  }
+
+  .admin-seta-v6 {
+    width: 24px;
+    color: #ffd139 !important;
+    font-size: 20px !important;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
+/* Tema claro */
+body.tema-claro .topbar.topbar-corporativa {
+  background: linear-gradient(180deg, #ffffff, #f8fbfd) !important;
+  border-bottom-color: #dce6ed !important;
+}
+
+body.tema-claro .usuario-info-premium-v6 > strong,
+body.tema-claro .usuario-info-premium-v6 > strong b {
+  color: #15222c !important;
+}
+
+body.tema-claro .usuario-divisor-v6 {
+  background: linear-gradient(180deg, transparent, #cbd9e3 20%, #cbd9e3 80%, transparent);
+}
+
+body.tema-claro .btn-login-gerencia-premium-v6 {
+  background:
+    radial-gradient(circle at 35% 10%, rgba(255, 196, 0, .14), transparent 48%),
+    linear-gradient(180deg, #fffef8, #f8f6ed) !important;
+  box-shadow: 0 8px 22px rgba(47, 59, 68, .10) !important;
+}
+
+/* Ajustes progressivos */
+@media (max-width: 1380px) and (min-width: 1181px) {
+  .usuario-premium-v6 { gap: 24px !important; }
+  .usuario-info-premium-v6 { min-width: 300px !important; }
+  .usuario-info-premium-v6 > strong { font-size: 23px !important; }
+  .btn-login-gerencia-premium-v6 { width: 245px !important; }
+}
+
+@media (max-width: 1180px) {
+  .usuario-premium-v6 {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .usuario-identidade-v6 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar-premium-v6 {
+    width: 58px !important;
+    height: 58px !important;
+    flex: 0 0 58px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+
+  .avatar-premium-v6 .usuario-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .usuario-divisor-v6 { height: 46px; }
+
+  .usuario-info-premium-v6 {
+    min-width: 190px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .usuario-info-premium-v6 > strong { font-size: 16px !important; }
+  .usuario-info-premium-v6 > strong b em { color: #079eff; font-style: normal; }
+  .usuario-info-premium-v6 > #usuarioPerfil { font-size: 8px !important; letter-spacing: 2px; margin-top: 5px; }
+
+  .usuario-status-v6 {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-top: 7px;
+  }
+
+  .usuario-online-v6 {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border: 1px solid rgba(21,229,139,.6);
+    border-radius: 999px;
+    color: #28ec9d !important;
+    font-size: 7px !important;
+  }
+
+  .usuario-online-v6 i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #20e894;
+  }
+
+  .usuario-status-v6 small { font-size: 7px !important; }
+  .usuario-status-divisor-v6 { width: 1px; height: 16px; background: rgba(92,124,147,.4); }
+
+  .btn-login-gerencia-premium-v6 {
+    min-width: 155px;
+    height: 54px;
+    display: flex !important;
+    align-items: center;
+    gap: 9px;
+    padding: 0 11px;
+    border: 1px solid rgba(255,201,30,.8);
+    border-radius: 11px;
+    background: #151307;
+  }
+
+  .admin-coroa-v6 { font-size: 20px !important; color: #ffd642 !important; }
+  .admin-texto-v6 { display: flex !important; flex-direction: column !important; align-items: flex-start; }
+  .admin-texto-v6 strong { color: #ffda4d !important; font-size: 14px; }
+  .admin-texto-v6 small { color: #9da9b2 !important; font-size: 6px; }
+  .admin-divisor-v6 { width: 1px; height: 30px; margin-left: auto; background: rgba(255,209,53,.25); }
+  .admin-seta-v6 { color: #ffd139 !important; }
+}
+
+@media (max-width: 820px) {
+  .usuario-info-premium-v6,
+  .usuario-divisor-v6 {
+    display: none !important;
+  }
+
+  .btn-login-gerencia-premium-v6 {
+    min-width: 46px;
+    width: 46px;
+    padding: 0;
+    justify-content: center !important;
+  }
+
+  .admin-texto-v6,
+  .admin-divisor-v6,
+  .admin-seta-v6 {
+    display: none !important;
+  }
+}

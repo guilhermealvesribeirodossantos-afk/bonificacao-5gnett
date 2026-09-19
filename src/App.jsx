@@ -78,78 +78,76 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="menu menu-profissional-v2">
+          <nav className="menu menu-profissional-v3">
             <button className="menu-item active" id="menuInicio">
-              <span className="menu-icone-v2">⌂</span>
+              <span className="menu-icone-v3 menu-home-v3">⌂</span>
               <strong>Início</strong>
-              <i className="menu-seta-v2">›</i>
+              <i className="menu-seta-v3">›</i>
             </button>
 
             <button className="menu-item" id="menuAtendimentos">
-              <span className="menu-icone-v2">📝</span>
+              <span className="menu-icone-v3">📝</span>
               <strong>Atendimentos</strong>
-              <i className="menu-seta-v2">›</i>
+              <i className="menu-seta-v3">›</i>
             </button>
 
             <button className="menu-item" id="menuNovoAtendimento">
-              <span className="menu-icone-v2 menu-icone-adicionar-v2">＋</span>
+              <span className="menu-icone-v3 menu-add-v3">＋</span>
               <strong>Novo Atendimento</strong>
-              <i className="menu-seta-v2">›</i>
+              <i className="menu-seta-v3">›</i>
             </button>
 
             <button className="menu-item" id="menuEquipe">
-              <span className="menu-icone-v2">🤝🏻</span>
+              <span className="menu-icone-v3">👥</span>
               <strong>Equipe</strong>
-              <i className="menu-seta-v2">›</i>
+              <i className="menu-seta-v3">›</i>
             </button>
 
-            <div className="menu-divisor-gerencia-v2">
+            <div className="menu-divisor-gerencia-v3">
               <span>ÁREA GERENCIAL</span>
             </div>
 
-            <button
-              className="menu-item menu-gerencia"
-              id="menuBonificacao"
-              data-gerencia="true"
-            >
-              <span className="menu-icone-v2 menu-icone-dourado-v2">🏆</span>
+            <button className="menu-item menu-gerencia" id="menuBonificacao" data-gerencia="true">
+              <span className="menu-icone-v3 menu-trofeu-v3">🏆</span>
               <strong>Bonificação</strong>
-              <b className="menu-lock-v2">🔒</b>
-              <i className="menu-seta-v2">›</i>
+              <span className="menu-acoes-v3">
+                <b className="menu-lock-v3">🔒</b>
+                <i className="menu-seta-v3">›</i>
+              </span>
             </button>
 
-            <button
-              className="menu-item menu-gerencia"
-              id="menuRelatorios"
-              data-gerencia="true"
-            >
-              <span className="menu-icone-v2">📊</span>
+            <button className="menu-item menu-gerencia" id="menuRelatorios" data-gerencia="true">
+              <span className="menu-icone-v3">📊</span>
               <strong>Relatórios</strong>
-              <b className="menu-lock-v2">🔒</b>
-              <i className="menu-seta-v2">›</i>
+              <span className="menu-acoes-v3">
+                <b className="menu-lock-v3">🔒</b>
+                <i className="menu-seta-v3">›</i>
+              </span>
             </button>
 
-            <button
-              className="menu-item menu-gerencia"
-              id="menuConfiguracoes"
-              data-gerencia="true"
-            >
-              <span className="menu-icone-v2">⚙️</span>
+            <button className="menu-item menu-gerencia" id="menuConfiguracoes" data-gerencia="true">
+              <span className="menu-icone-v3">⚙️</span>
               <strong>Configurações</strong>
-              <b className="menu-lock-v2">🔒</b>
-              <i className="menu-seta-v2">›</i>
+              <span className="menu-acoes-v3">
+                <b className="menu-lock-v3">🔒</b>
+                <i className="menu-seta-v3">›</i>
+              </span>
             </button>
           </nav>
 
-          <div className="sidebar-footer sidebar-footer-profissional-v2">
-            <div>
+          <div className="sidebar-footer sidebar-footer-profissional-v3">
+            <div className="sidebar-footer-marca-v3">
               <strong>5GNETT</strong>
               <span>Operações de Suporte</span>
             </div>
 
-            <div className="sidebar-footer-sinal-v2" aria-hidden="true">
+            <div className="sidebar-footer-sinal-v3" aria-hidden="true">
               <i></i><i></i><i></i>
             </div>
+
+            <strong className="sidebar-footer-slogan-v3">
+              CONECTANDO<br />PESSOAS<br />SEMPRE
+            </strong>
           </div>
         </aside>
 

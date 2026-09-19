@@ -10577,3 +10577,146 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — SIDEBAR FIXA COMPACTA 260PX
+   Ajuste desktop final
+   ========================================================= */
+
+@media (min-width: 821px) {
+  .app {
+    grid-template-columns: 260px minmax(0, 1fr) !important;
+  }
+
+  .sidebar,
+  .sidebar.sidebar-retratil,
+  .sidebar.sidebar-retratil.aberta,
+  .sidebar.sidebar-retratil.fechada {
+    width: 260px !important;
+    min-width: 260px !important;
+    padding: 17px 13px 15px !important;
+  }
+
+  .sidebar .logo.logo-corporativa-v2 {
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    gap: 11px !important;
+    margin: 0 2px 13px !important;
+    padding: 6px 3px 15px !important;
+  }
+
+  .sidebar .logo-marca-v2 {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    border-radius: 12px !important;
+  }
+
+  .sidebar .logo-identidade-v2 h1 {
+    font-size: 21px !important;
+  }
+
+  .sidebar .logo-identidade-v2 > span {
+    font-size: 6.5px !important;
+    letter-spacing: 1.25px !important;
+  }
+
+  .sidebar .logo-status-v2 {
+    margin-top: 6px !important;
+  }
+
+  .sidebar .logo-status-v2 strong {
+    font-size: 7.5px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .sidebar .menu-profissional-v3 {
+    gap: 2px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-item {
+    min-height: 48px !important;
+    grid-template-columns: 34px minmax(0, 1fr) auto !important;
+    column-gap: 9px !important;
+    padding: 0 11px !important;
+    border-radius: 9px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-item::before {
+    left: -14px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-item strong {
+    font-size: 12.5px !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-icone-v3 {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 19px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-add-v3 {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 19px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-seta-v3 {
+    font-size: 22px !important;
+  }
+
+  .sidebar .menu-divisor-gerencia-v3 {
+    margin: 7px 5px 3px !important;
+    padding-top: 13px !important;
+  }
+
+  .sidebar .menu-divisor-gerencia-v3 span {
+    font-size: 7px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+  .sidebar .menu-gerencia > .menu-acoes-v3 {
+    width: 43px !important;
+    min-width: 43px !important;
+    gap: 5px !important;
+  }
+
+  .sidebar .menu-gerencia > .menu-acoes-v3 > .menu-lock-v3 {
+    width: 14px !important;
+    min-width: 14px !important;
+    height: 18px !important;
+    font-size: 11px !important;
+  }
+
+  .sidebar .sidebar-footer-profissional-v3 {
+    min-height: 78px !important;
+    margin-top: 14px !important;
+    padding: 11px 10px !important;
+    grid-template-columns: minmax(82px, 1fr) auto auto !important;
+    gap: 7px !important;
+    border-radius: 11px !important;
+  }
+
+  .sidebar .sidebar-footer-marca-v3 strong {
+    font-size: 13px !important;
+  }
+
+  .sidebar .sidebar-footer-marca-v3 span {
+    font-size: 7px !important;
+  }
+
+  .sidebar .sidebar-footer-sinal-v3 {
+    height: 30px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+
+  .sidebar .sidebar-footer-slogan-v3 {
+    font-size: 6px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.05px !important;
+  }
+}
+

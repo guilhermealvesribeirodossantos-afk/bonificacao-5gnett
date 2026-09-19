@@ -78,46 +78,44 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="menu">
-            <button
-              className="menu-item active"
-              id="menuInicio"
-            >
-              <span>🏠︎</span>
-              Início
+          <nav className="menu menu-profissional-v2">
+            <button className="menu-item active" id="menuInicio">
+              <span className="menu-icone-v2">⌂</span>
+              <strong>Início</strong>
+              <i className="menu-seta-v2">›</i>
             </button>
 
-            <button
-              className="menu-item"
-              id="menuAtendimentos"
-            >
-              <span>📝</span>
-              Atendimentos
+            <button className="menu-item" id="menuAtendimentos">
+              <span className="menu-icone-v2">📝</span>
+              <strong>Atendimentos</strong>
+              <i className="menu-seta-v2">›</i>
             </button>
 
-            <button
-              className="menu-item"
-              id="menuNovoAtendimento"
-            >
-              <span>＋</span>
-              Novo Atendimento
+            <button className="menu-item" id="menuNovoAtendimento">
+              <span className="menu-icone-v2 menu-icone-adicionar-v2">＋</span>
+              <strong>Novo Atendimento</strong>
+              <i className="menu-seta-v2">›</i>
             </button>
 
-            <button
-              className="menu-item"
-              id="menuEquipe"
-            >
-              <span>🤝🏻</span>
-              Equipe
+            <button className="menu-item" id="menuEquipe">
+              <span className="menu-icone-v2">🤝🏻</span>
+              <strong>Equipe</strong>
+              <i className="menu-seta-v2">›</i>
             </button>
+
+            <div className="menu-divisor-gerencia-v2">
+              <span>ÁREA GERENCIAL</span>
+            </div>
 
             <button
               className="menu-item menu-gerencia"
               id="menuBonificacao"
               data-gerencia="true"
             >
-              <span>🏆</span>
-              Bonificação
+              <span className="menu-icone-v2 menu-icone-dourado-v2">🏆</span>
+              <strong>Bonificação</strong>
+              <b className="menu-lock-v2">🔒</b>
+              <i className="menu-seta-v2">›</i>
             </button>
 
             <button
@@ -125,8 +123,10 @@ export default function App() {
               id="menuRelatorios"
               data-gerencia="true"
             >
-              <span>📊</span>
-              Relatórios
+              <span className="menu-icone-v2">📊</span>
+              <strong>Relatórios</strong>
+              <b className="menu-lock-v2">🔒</b>
+              <i className="menu-seta-v2">›</i>
             </button>
 
             <button
@@ -134,17 +134,22 @@ export default function App() {
               id="menuConfiguracoes"
               data-gerencia="true"
             >
-              <span>⚙️</span>
-              Configurações
+              <span className="menu-icone-v2">⚙️</span>
+              <strong>Configurações</strong>
+              <b className="menu-lock-v2">🔒</b>
+              <i className="menu-seta-v2">›</i>
             </button>
           </nav>
 
-          <div className="sidebar-footer">
-            <strong>5GNETT</strong>
+          <div className="sidebar-footer sidebar-footer-profissional-v2">
+            <div>
+              <strong>5GNETT</strong>
+              <span>Operações de Suporte</span>
+            </div>
 
-            <span>
-              Operações de Suporte
-            </span>
+            <div className="sidebar-footer-sinal-v2" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
           </div>
         </aside>
 

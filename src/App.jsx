@@ -268,47 +268,53 @@ export default function App() {
               ☀️
             </button>
 
-            <div className="usuario usuario-corporativo usuario-premium-v4">
-              <div className="usuario-identidade-v4">
-                <div className="avatar avatar-premium-v4">
-                  <img
-                    src={perfil}
-                    alt="Perfil"
-                    className="usuario-foto"
-                  />
-                  <span className="usuario-online-check-v4" aria-label="Online">✓</span>
+            <div className="usuario usuario-corporativo usuario-premium-v5">
+              <div className="usuario-identidade-v5">
+                <div className="avatar avatar-premium-v5">
+                  <span className="avatar-anel-v5">
+                    <img
+                      src={perfil}
+                      alt="Perfil"
+                      className="usuario-foto"
+                    />
+                  </span>
+                  <span className="usuario-online-check-v5" aria-label="Online">✓</span>
                 </div>
 
-                <div className="usuario-info usuario-info-premium-v4">
+                <span className="usuario-divisor-v5" aria-hidden="true"></span>
+
+                <div className="usuario-info usuario-info-premium-v5">
                   <strong id="usuarioNome">
                     Equipe <b>5GNETT</b>
                   </strong>
 
                   <span id="usuarioPerfil">
-                    Suporte Técnico
+                    SUPORTE TÉCNICO
                   </span>
 
-                  <div className="usuario-status-v4">
-                    <span className="usuario-online-v4">
+                  <div className="usuario-status-v5">
+                    <span className="usuario-online-v5">
                       <i></i>
                       ONLINE
                     </span>
+                    <span className="usuario-status-divisor-v5"></span>
                     <small>PRONTO PARA ATENDER</small>
                   </div>
                 </div>
               </div>
 
               <button
-                className="btn-login-gerencia btn-login-gerencia-premium-v4"
+                className="btn-login-gerencia btn-login-gerencia-premium-v5"
                 id="btnLoginGerencia"
                 type="button"
               >
-                <span className="admin-coroa-v4">♛</span>
-                <span className="admin-texto-v4">
+                <span className="admin-coroa-v5">♛</span>
+                <span className="admin-texto-v5">
                   <strong>Admin</strong>
                   <small>ACESSO TOTAL</small>
                 </span>
-                <span className="admin-seta-v4">⌄</span>
+                <span className="admin-divisor-v5" aria-hidden="true"></span>
+                <span className="admin-seta-v5">⌄</span>
               </button>
 
               <button

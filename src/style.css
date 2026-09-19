@@ -10256,3 +10256,86 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — HOTFIX DO PUXADOR DA SIDEBAR RETRÁTIL
+   Mantém a aba sempre visível no desktop
+   ========================================================= */
+
+@media (min-width: 821px) {
+  .sidebar.sidebar-retratil {
+    overflow-x: visible !important;
+  }
+
+  /* O botão está dentro da sidebar, então usamos absolute para ele
+     acompanhar corretamente a borda do painel. */
+  .sidebar.sidebar-retratil .sidebar-puxador {
+    position: absolute !important;
+    z-index: 1305 !important;
+    top: 104px !important;
+    left: auto !important;
+    right: -31px !important;
+
+    width: 31px !important;
+    height: 68px !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+
+    border: 1px solid rgba(42, 153, 232, 0.72) !important;
+    border-left: 0 !important;
+    border-radius: 0 11px 11px 0 !important;
+
+    background:
+      linear-gradient(180deg, rgba(7, 43, 68, .99), rgba(3, 21, 34, .99)) !important;
+
+    color: #8fd0ff !important;
+
+    box-shadow:
+      6px 0 18px rgba(0, 0, 0, .30),
+      inset 1px 0 0 rgba(255, 255, 255, .035) !important;
+
+    transform: none !important;
+  }
+
+  .sidebar.sidebar-retratil .sidebar-puxador:hover {
+    width: 35px !important;
+    right: -35px !important;
+    color: #ffffff !important;
+    background:
+      linear-gradient(180deg, rgba(7, 103, 169, .99), rgba(4, 49, 82, .99)) !important;
+  }
+
+  .sidebar.sidebar-retratil .sidebar-puxador span {
+    display: block !important;
+    width: auto !important;
+    font-size: 28px !important;
+    line-height: 1 !important;
+    transform: translateY(-1px) !important;
+  }
+
+  /* Fechada: deixa somente o puxador para fora da tela */
+  .sidebar.sidebar-retratil.fechada {
+    transform: translateX(-100%) !important;
+    overflow: visible !important;
+  }
+
+  /* Aberta: painel inteiro + puxador na borda direita */
+  .sidebar.sidebar-retratil.aberta {
+    transform: translateX(0) !important;
+    overflow-x: visible !important;
+  }
+
+  body.tema-claro .sidebar.sidebar-retratil .sidebar-puxador {
+    border-color: #a9d5f0 !important;
+    background: linear-gradient(180deg, #ffffff, #eaf5fb) !important;
+    color: #197ab7 !important;
+    box-shadow: 5px 0 16px rgba(31, 79, 113, .15) !important;
+  }
+}
+

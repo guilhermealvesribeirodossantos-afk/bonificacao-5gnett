@@ -9158,3 +9158,446 @@ body.tema-claro .sidebar-footer-sinal-v2 {
   }
 }
 
+
+
+/* =========================================================
+   5GNETT — SIDEBAR V3 FIEL À REFERÊNCIA
+   ========================================================= */
+
+/* Proporção geral */
+.app {
+  grid-template-columns: 310px minmax(0, 1fr);
+}
+
+.sidebar {
+  padding: 24px 20px 20px;
+  background:
+    radial-gradient(circle at 0 12%, rgba(0, 127, 225, 0.10), transparent 27%),
+    linear-gradient(180deg, rgba(3, 13, 21, 0.985), rgba(1, 8, 14, 0.995));
+  border-right: 1px solid rgba(39, 105, 153, 0.42);
+}
+
+/* Cabeçalho */
+.logo.logo-corporativa-v2 {
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 16px;
+  margin: 0 4px 24px;
+  padding: 12px 5px 25px;
+}
+
+.logo.logo-corporativa-v2::after {
+  left: 5px;
+  right: 5px;
+  background: linear-gradient(90deg, #078cff 0 34%, rgba(7, 140, 255, .28) 34% 100%);
+}
+
+.logo-marca-v2 {
+  width: 62px;
+  height: 62px;
+  border-radius: 15px;
+  border-color: rgba(41, 166, 255, .72);
+  box-shadow:
+    0 0 0 4px rgba(0, 128, 255, .07),
+    0 0 24px rgba(0, 136, 255, .23),
+    0 12px 28px rgba(0, 0, 0, .34);
+}
+
+.logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+.logo.logo-corporativa-v2 .logo-identidade-v2 > span {
+  margin-top: 7px;
+  font-size: 8px;
+  letter-spacing: 2.15px;
+}
+
+.logo-status-v2 {
+  margin-top: 11px;
+}
+
+.logo-status-v2 i {
+  width: 8px;
+  height: 8px;
+  flex-basis: 8px;
+}
+
+.logo-status-v2 strong {
+  font-size: 9px;
+  letter-spacing: 1.45px;
+}
+
+/* Menu */
+.menu-profissional-v3 {
+  gap: 8px;
+}
+
+.menu-profissional-v3 .menu-item {
+  position: relative;
+  width: 100%;
+  min-height: 61px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 14px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: #afc2d5;
+  text-align: left;
+  transition: .18s ease;
+}
+
+.menu-profissional-v3 .menu-item::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 11px;
+  bottom: 11px;
+  width: 4px;
+  border-radius: 0 5px 5px 0;
+  background: transparent;
+}
+
+.menu-profissional-v3 .menu-icone-v3 {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.menu-profissional-v3 .menu-add-v3 {
+  width: 32px;
+  height: 32px;
+  justify-self: center;
+  border: 2px solid #b7cce0;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 300;
+  color: #d6e7f6;
+}
+
+.menu-profissional-v3 .menu-item strong {
+  min-width: 0;
+  overflow: visible;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 520;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.menu-profissional-v3 .menu-seta-v3 {
+  color: #8ebee8;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1;
+  opacity: .92;
+}
+
+.menu-profissional-v3 .menu-item:hover {
+  background: rgba(7, 83, 143, .15);
+  border-color: rgba(37, 131, 203, .28);
+  color: #edf7ff;
+}
+
+.menu-profissional-v3 .menu-item.active {
+  color: #fff;
+  border-color: rgba(0, 139, 255, .78);
+  background:
+    radial-gradient(circle at 15% 50%, rgba(0, 134, 255, .24), transparent 48%),
+    linear-gradient(90deg, rgba(0, 78, 145, .50), rgba(5, 33, 53, .72));
+  box-shadow:
+    inset 0 0 28px rgba(0, 122, 230, .08),
+    0 9px 25px rgba(0, 52, 96, .16);
+}
+
+.menu-profissional-v3 .menu-item.active::before {
+  background: #0ba2ff;
+  box-shadow: 0 0 12px rgba(11, 162, 255, .75);
+}
+
+.menu-profissional-v3 .menu-item.active .menu-icone-v3 {
+  color: #dff2ff;
+  text-shadow: 0 0 14px rgba(0, 145, 255, .8);
+}
+
+.menu-profissional-v3 .menu-item.active strong {
+  font-weight: 760;
+}
+
+/* Área gerencial */
+.menu-divisor-gerencia-v3 {
+  position: relative;
+  margin: 17px 7px 4px;
+  padding-top: 22px;
+}
+
+.menu-divisor-gerencia-v3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(18, 145, 238, .72), rgba(34, 96, 143, .42));
+}
+
+.menu-divisor-gerencia-v3 span {
+  color: #86a9c8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.4px;
+}
+
+.menu-acoes-v3 {
+  display: flex !important;
+  width: auto !important;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 13px;
+}
+
+.menu-lock-v3 {
+  color: #e8ad21;
+  font-size: 15px;
+  line-height: 1;
+  filter: saturate(.9);
+}
+
+.menu-trofeu-v3 {
+  filter: saturate(1.15);
+}
+
+/* Rodapé como na referência */
+.sidebar-footer-profissional-v3 {
+  min-height: 102px;
+  margin: auto 0 0;
+  padding: 19px 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(43, 103, 148, .45);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, rgba(6, 24, 38, .82), rgba(2, 13, 22, .88));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 10px 30px rgba(0,0,0,.14);
+}
+
+.sidebar-footer-marca-v3 {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sidebar-footer-marca-v3 strong {
+  color: #e8f3fc;
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: .3px;
+}
+
+.sidebar-footer-marca-v3 span {
+  color: #88a4bd;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.sidebar-footer-sinal-v3 {
+  height: 42px;
+  padding: 0 14px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  border-left: 1px solid rgba(87, 134, 170, .55);
+  border-right: 1px solid rgba(87, 134, 170, .55);
+}
+
+.sidebar-footer-sinal-v3 i {
+  width: 5px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #c6dcff, #6e9bd0);
+  box-shadow: 0 0 8px rgba(91, 157, 221, .18);
+}
+
+.sidebar-footer-sinal-v3 i:nth-child(1) { height: 12px; }
+.sidebar-footer-sinal-v3 i:nth-child(2) { height: 23px; }
+.sidebar-footer-sinal-v3 i:nth-child(3) { height: 35px; }
+
+.sidebar-footer-slogan-v3 {
+  color: #8eb4d8 !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+  line-height: 1.65;
+  letter-spacing: 1.7px !important;
+}
+
+/* Tema claro */
+body.tema-claro .sidebar {
+  background:
+    radial-gradient(circle at 0 12%, rgba(28, 142, 224, .055), transparent 27%),
+    linear-gradient(180deg, #ffffff, #f8fbfd);
+  border-right-color: #d7e5ef;
+}
+
+body.tema-claro .menu-profissional-v3 .menu-item {
+  color: #52697d;
+}
+
+body.tema-claro .menu-profissional-v3 .menu-item:hover {
+  background: #f1f7fb;
+  border-color: #d5e5f0;
+  color: #183a56;
+}
+
+body.tema-claro .menu-profissional-v3 .menu-item.active {
+  color: #0b4f84;
+  border-color: #87c6f4;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(14, 143, 237, .13), transparent 48%),
+    linear-gradient(90deg, #e7f5ff, #f7fbfe);
+  box-shadow: 0 8px 20px rgba(32, 105, 158, .08);
+}
+
+body.tema-claro .menu-profissional-v3 .menu-item.active::before {
+  background: #118fe8;
+  box-shadow: none;
+}
+
+body.tema-claro .menu-profissional-v3 .menu-item.active .menu-icone-v3 {
+  color: #117bc3;
+  text-shadow: none;
+}
+
+body.tema-claro .menu-divisor-gerencia-v3::before {
+  background: linear-gradient(90deg, #a7d3ef, #dcebf4);
+}
+
+body.tema-claro .menu-divisor-gerencia-v3 span {
+  color: #66849c;
+}
+
+body.tema-claro .menu-profissional-v3 .menu-add-v3 {
+  color: #57758c;
+  border-color: #7e9cb3;
+}
+
+body.tema-claro .sidebar-footer-profissional-v3 {
+  border-color: #d2e2ed;
+  background: linear-gradient(145deg, #fbfdff, #f2f8fb);
+  box-shadow: 0 8px 24px rgba(40, 85, 117, .06);
+}
+
+body.tema-claro .sidebar-footer-marca-v3 strong {
+  color: #19354b;
+}
+
+body.tema-claro .sidebar-footer-marca-v3 span {
+  color: #6f899d;
+}
+
+body.tema-claro .sidebar-footer-slogan-v3 {
+  color: #5f829f !important;
+}
+
+/* Mantém boa proporção em notebooks menores */
+@media (max-width: 1180px) {
+  .app {
+    grid-template-columns: 285px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .menu-profissional-v3 .menu-item {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    column-gap: 11px;
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .menu-profissional-v3 .menu-item strong {
+    font-size: 14px;
+  }
+
+  .menu-profissional-v3 .menu-icone-v3 {
+    width: 38px;
+    font-size: 22px;
+  }
+
+  .sidebar-footer-profissional-v3 {
+    padding-left: 14px;
+    padding-right: 14px;
+    gap: 10px;
+  }
+
+  .sidebar-footer-sinal-v3 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .logo.logo-corporativa-v2 {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .logo-marca-v2 {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo.logo-corporativa-v2 .logo-identidade-v2 h1 {
+    font-size: 20px;
+  }
+
+  .menu-profissional-v3 .menu-item {
+    min-height: 54px;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    column-gap: 8px;
+    padding: 0 10px;
+  }
+
+  .menu-profissional-v3 .menu-item strong {
+    font-size: 12px;
+  }
+
+  .menu-profissional-v3 .menu-icone-v3 {
+    width: 32px;
+    font-size: 19px;
+  }
+
+  .sidebar-footer-slogan-v3 {
+    display: none;
+  }
+
+  .sidebar-footer-profissional-v3 {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .sidebar-footer-sinal-v3 {
+    border-right: 0;
+    padding-right: 0;
+  }
+}
+

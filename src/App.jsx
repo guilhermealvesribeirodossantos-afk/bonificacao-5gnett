@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { initializeLegacyApp } from "./legacyLoader";
 import logo from "./assets/logo 5gnett.png";
@@ -8,6 +8,9 @@ export default function App() {
   const [servicoAberto, setServicoAberto] = useState(false);
   const [servicoBusca, setServicoBusca] = useState("");
   const [servicoSelecionado, setServicoSelecionado] = useState("");
+  const [servicoDirecao, setServicoDirecao] = useState("baixo");
+  const [servicoAlturaLista, setServicoAlturaLista] = useState(315);
+  const servicoComboboxRef = useRef(null);
 
   const gruposServico = [
     {
@@ -47,6 +50,37 @@ export default function App() {
     }))
     .filter((grupo) => grupo.opcoes.length > 0);
 
+  const ajustarPosicaoServico = () => {
+    const elemento = servicoComboboxRef.current;
+    if (!elemento) return;
+
+    const rect = elemento.getBoundingClientRect();
+    const margem = 18;
+    const espacoAbaixo = window.innerHeight - rect.bottom - margem;
+    const espacoAcima = rect.top - margem;
+    const alturaIdeal = 360;
+    const alturaMinima = 190;
+
+    const abrirParaCima =
+      espacoAbaixo < alturaMinima && espacoAcima > espacoAbaixo;
+
+    const espacoDisponivel = abrirParaCima ? espacoAcima : espacoAbaixo;
+    const altura = Math.max(
+      150,
+      Math.min(alturaIdeal, espacoDisponivel - 72)
+    );
+
+    setServicoDirecao(abrirParaCima ? "cima" : "baixo");
+    setServicoAlturaLista(altura);
+  };
+
+  const alternarServico = () => {
+    if (!servicoAberto) {
+      ajustarPosicaoServico();
+    }
+    setServicoAberto((aberto) => !aberto);
+  };
+
   const selecionarServico = (servico) => {
     setServicoSelecionado(servico);
     setServicoBusca("");
@@ -60,6 +94,20 @@ export default function App() {
       }
     });
   };
+
+  useEffect(() => {
+    if (!servicoAberto) return undefined;
+
+    const reposicionar = () => ajustarPosicaoServico();
+
+    window.addEventListener("resize", reposicionar);
+    window.addEventListener("scroll", reposicionar, true);
+
+    return () => {
+      window.removeEventListener("resize", reposicionar);
+      window.removeEventListener("scroll", reposicionar, true);
+    };
+  }, [servicoAberto]);
 
   useEffect(() => {
     // =====================================================
@@ -2237,11 +2285,16 @@ export default function App() {
                   Tipo de serviço *
                 </label>
 
-                <div className={`servico-combobox ${servicoAberto ? "aberto" : ""}`}>
+                <div
+                  ref={servicoComboboxRef}
+                  className={`servico-combobox ${servicoAberto ? "aberto" : ""} ${
+                    servicoDirecao === "cima" ? "abrir-cima" : "abrir-baixo"
+                  }`}
+                >
                   <button
                     type="button"
                     className="servico-combobox-trigger"
-                    onClick={() => setServicoAberto((aberto) => !aberto)}
+                    onClick={alternarServico}
                     aria-expanded={servicoAberto}
                   >
                     <span className={servicoSelecionado ? "selecionado" : ""}>
@@ -2263,7 +2316,10 @@ export default function App() {
                         />
                       </div>
 
-                      <div className="servico-combobox-lista">
+                      <div
+                        className="servico-combobox-lista"
+                        style={{ maxHeight: `${servicoAlturaLista}px` }}
+                      >
                         {gruposServicoFiltrados.length ? (
                           gruposServicoFiltrados.map((grupo) => (
                             <div className="servico-combobox-grupo" key={grupo.titulo}>

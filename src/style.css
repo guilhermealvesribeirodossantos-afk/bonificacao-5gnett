@@ -12277,3 +12277,47 @@ body.tema-claro .table-container tbody tr.atendimento-pontuado .pontuacao-leitur
   color: #087c49;
 }
 
+
+/* =========================================================
+   CORREÇÃO MARCA-TEXTO — APLICAR O DESTAQUE NAS CÉLULAS
+   A tabela possui fundo próprio nos TDs, então o destaque
+   precisa ser aplicado diretamente em cada célula.
+   ========================================================= */
+
+.table-container tbody tr.atendimento-pontuado > td {
+  background: rgba(12, 105, 68, 0.22) !important;
+  border-top-color: rgba(22, 216, 135, 0.30) !important;
+  border-bottom-color: rgba(22, 216, 135, 0.30) !important;
+}
+
+.table-container tbody tr.atendimento-pontuado > td:first-child {
+  background:
+    linear-gradient(90deg, rgba(22, 216, 135, 0.32), rgba(12, 105, 68, 0.22)) !important;
+  box-shadow: inset 4px 0 0 #16d887 !important;
+}
+
+.table-container tbody tr.atendimento-pontuado:hover > td {
+  background: rgba(12, 125, 78, 0.30) !important;
+}
+
+.table-container tbody tr.atendimento-pontuado:hover > td:first-child {
+  background:
+    linear-gradient(90deg, rgba(22, 216, 135, 0.40), rgba(12, 125, 78, 0.30)) !important;
+}
+
+body.tema-claro .table-container tbody tr.atendimento-pontuado > td {
+  background: rgba(24, 184, 112, 0.10) !important;
+  border-top-color: rgba(18, 184, 110, 0.24) !important;
+  border-bottom-color: rgba(18, 184, 110, 0.24) !important;
+}
+
+body.tema-claro .table-container tbody tr.atendimento-pontuado > td:first-child {
+  background:
+    linear-gradient(90deg, rgba(18, 184, 110, 0.22), rgba(24, 184, 112, 0.10)) !important;
+  box-shadow: inset 4px 0 0 #12b86e !important;
+}
+
+body.tema-claro .table-container tbody tr.atendimento-pontuado:hover > td {
+  background: rgba(24, 184, 112, 0.15) !important;
+}
+

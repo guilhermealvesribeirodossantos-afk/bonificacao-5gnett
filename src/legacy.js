@@ -784,7 +784,6 @@ function renderizarTabela() {
         </td>
       </tr>`;
   }).join("");
-}
 
 
   renderizarPaginacaoAtendimentos(lista.length);

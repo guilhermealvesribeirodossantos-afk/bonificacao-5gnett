@@ -12,6 +12,7 @@ const SUPABASE_KEY = "sb_publishable_H2YIRxy8bVpA6UhUx2G2Yg_unN0ziVe";
 const SUPABASE_TABLE = "atendimentos";
 
 const SUPABASE_FOTOS_BUCKET = "fotos-equipe";
+const FOTO_GERENCIA_ARQUIVO = "gerencia-perfil";
 const FOTOS_EQUIPE = {
   Guilherme: "guilherme.png",
   Ronald: "ronald.jpg",
@@ -161,6 +162,140 @@ function fecharLoginGerencia() {
   $("erroLoginGerencia").hidden = true;
 }
 
+function urlFotoGerencia() {
+  return `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_FOTOS_BUCKET}/${FOTO_GERENCIA_ARQUIVO}`;
+}
+
+function fotoPadraoGerencia(elemento) {
+  return elemento?.dataset?.fotoPadrao || elemento?.getAttribute("src") || "";
+}
+
+function aplicarFotoGerencia(url = "") {
+  const topbar = $("fotoGerenciaTopbar");
+  const preview = $("fotoGerenciaPreview");
+
+  [topbar, preview].filter(Boolean).forEach(elemento => {
+    const padrao = fotoPadraoGerencia(elemento);
+
+    elemento.onerror = () => {
+      elemento.onerror = null;
+      if (padrao) elemento.src = padrao;
+    };
+
+    elemento.src = url || padrao;
+  });
+}
+
+function atualizarFotoGerenciaInterface() {
+  const preview = $("fotoGerenciaPreview");
+  const botao = $("btnAlterarFotoGerencia");
+  const status = $("statusFotoGerencia");
+
+  if (botao) botao.disabled = !gerenciaAutorizada;
+
+  if (status && !gerenciaAutorizada) {
+    status.textContent = "Entre na Gerência para alterar a foto";
+  }
+
+  if (!gerenciaAutorizada) {
+    const topbar = $("fotoGerenciaTopbar");
+    if (topbar) {
+      const padrao = fotoPadraoGerencia(topbar);
+      if (padrao) topbar.src = padrao;
+    }
+
+    if (preview) {
+      const padrao = fotoPadraoGerencia(preview);
+      if (padrao) preview.src = padrao;
+    }
+
+    return;
+  }
+
+  const versao = Date.now();
+  aplicarFotoGerencia(`${urlFotoGerencia()}?v=${versao}`);
+
+  if (status) {
+    status.textContent = "PNG, JPG ou WEBP";
+  }
+}
+
+async function enviarFotoGerencia(arquivo) {
+  if (!gerenciaAutorizada || !sessaoGerencia?.access_token) {
+    alert("Entre na Gerência para alterar a foto.");
+    return;
+  }
+
+  if (!arquivo) return;
+
+  if (!["image/png", "image/jpeg", "image/webp"].includes(arquivo.type)) {
+    alert("Use uma imagem PNG, JPG/JPEG ou WEBP.");
+    return;
+  }
+
+  if (arquivo.size > 5 * 1024 * 1024) {
+    alert("A foto deve ter no máximo 5 MB.");
+    return;
+  }
+
+  const status = $("statusFotoGerencia");
+  const botao = $("btnAlterarFotoGerencia");
+  const input = $("inputFotoGerencia");
+
+  if (status) status.textContent = "Enviando...";
+  if (botao) botao.disabled = true;
+
+  try {
+    const resposta = await fetch(
+      `${SUPABASE_URL}/storage/v1/object/${SUPABASE_FOTOS_BUCKET}/${FOTO_GERENCIA_ARQUIVO}`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${sessaoGerencia.access_token}`,
+          "Content-Type": arquivo.type,
+          "x-upsert": "true"
+        },
+        body: arquivo
+      }
+    );
+
+    if (!resposta.ok) {
+      throw new Error(await resposta.text());
+    }
+
+    aplicarFotoGerencia(`${urlFotoGerencia()}?v=${Date.now()}`);
+
+    if (status) status.textContent = "Foto da Gerência atualizada";
+  } catch (erro) {
+    console.error("Erro ao enviar foto da Gerência:", erro);
+
+    if (status) status.textContent = "Não foi possível atualizar a foto";
+
+    alert("Não foi possível alterar a foto da Gerência.");
+  } finally {
+    if (botao) botao.disabled = false;
+    if (input) input.value = "";
+  }
+}
+
+function configurarUploadFotoGerencia() {
+  const botao = $("btnAlterarFotoGerencia");
+  const input = $("inputFotoGerencia");
+
+  botao?.addEventListener("click", () => {
+    if (!exigirGerencia()) return;
+    input?.click();
+  });
+
+  input?.addEventListener("change", () => {
+    enviarFotoGerencia(input.files?.[0]);
+  });
+
+  atualizarFotoGerenciaInterface();
+}
+
+
 function atualizarInterfaceGerencia() {
   document.body.classList.toggle("gerencia-logada", gerenciaAutorizada);
 
@@ -181,6 +316,7 @@ function atualizarInterfaceGerencia() {
 
   renderizarTabela();
   atualizarControlesFotoEquipe();
+  atualizarFotoGerenciaInterface();
 }
 
 async function validarGerencia(token, userId) {
@@ -3501,6 +3637,7 @@ async function iniciarSistema() {
   configurarPainelEquipe();
 
   configurarUploadFotoEquipe();
+configurarUploadFotoGerencia();
 
   await restaurarSessaoGerencia();
 

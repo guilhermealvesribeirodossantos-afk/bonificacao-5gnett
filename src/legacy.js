@@ -42,24 +42,58 @@ let gerenciaAutorizada = false;
 let paginaAtendimentosAtual = 1;
 let itensPorPaginaAtendimentos = 50;
 
+// Paginação real da tabela no Supabase.
+// A base analítica continua separada para Equipe, Bonificação,
+// Relatórios, Dashboard e Fechamento Mensal.
+let atendimentosPagina = [];
+let totalAtendimentosServidor = 0;
+let paginacaoServidorAtiva = false;
+let carregandoPaginaAtendimentos = false;
+
 function totalPaginasAtendimentos(total) {
   return Math.max(1, Math.ceil(total / itensPorPaginaAtendimentos));
 }
 
-function irParaPaginaAtendimentos(pagina) {
-  const total = totalPaginasAtendimentos(obterFiltrados().length);
-  paginaAtendimentosAtual = Math.min(Math.max(1, Number(pagina) || 1), total);
-  renderizarTabela();
+async function irParaPaginaAtendimentos(pagina) {
+  const totalBase =
+    paginacaoServidorAtiva
+      ? totalAtendimentosServidor
+      : obterFiltrados().length;
+
+  const total =
+    totalPaginasAtendimentos(totalBase);
+
+  paginaAtendimentosAtual =
+    Math.min(
+      Math.max(1, Number(pagina) || 1),
+      total
+    );
+
+  if (paginacaoServidorAtiva) {
+    await carregarPaginaAtendimentosServidor();
+  } else {
+    renderizarTabela();
+  }
 }
 
-function alterarItensPorPaginaAtendimentos(valor) {
-  itensPorPaginaAtendimentos = Number(valor) || 50;
+async function alterarItensPorPaginaAtendimentos(valor) {
+  itensPorPaginaAtendimentos =
+    Number(valor) || 50;
+
   paginaAtendimentosAtual = 1;
-  renderizarTabela();
+
+  if (paginacaoServidorAtiva) {
+    await carregarPaginaAtendimentosServidor();
+  } else {
+    renderizarTabela();
+  }
 }
 
-window.irParaPaginaAtendimentos = irParaPaginaAtendimentos;
-window.alterarItensPorPaginaAtendimentos = alterarItensPorPaginaAtendimentos;
+window.irParaPaginaAtendimentos =
+  irParaPaginaAtendimentos;
+
+window.alterarItensPorPaginaAtendimentos =
+  alterarItensPorPaginaAtendimentos;
 const GERENCIA_UID = "f29980e0-5fbd-4d35-a374-945ed68e99fd";
 const AUTH_STORAGE_KEY = "5gnett_gerencia_session";
 
@@ -83,6 +117,124 @@ function headersSupabase(prefer = "") {
 
   if (prefer) headers["Prefer"] = prefer;
   return headers;
+}
+
+function headersSupabasePublico(prefer = "") {
+  const headers = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": `Bearer ${SUPABASE_KEY}`,
+    "Content-Type": "application/json"
+  };
+
+  if (prefer) {
+    headers["Prefer"] = prefer;
+  }
+
+  return headers;
+}
+
+function filtrosTabelaAtivos() {
+  return Boolean(
+    $("pesquisa")?.value?.trim() ||
+    $("dataInicial")?.value ||
+    $("dataFinal")?.value ||
+    $("filtroAtendente")?.value ||
+    $("filtroCanal")?.value ||
+    $("filtroResolutividade")?.value
+  );
+}
+
+async function carregarPaginaAtendimentosServidor() {
+  if (carregandoPaginaAtendimentos) return;
+
+  // Pesquisa textual e filtros continuam usando a base completa nesta etapa,
+  // garantindo exatamente o comportamento atual. A consulta paginada é usada
+  // quando a listagem está sem filtros.
+  if (filtrosTabelaAtivos()) {
+    paginacaoServidorAtiva = false;
+    renderizarTabela();
+    return;
+  }
+
+  carregandoPaginaAtendimentos = true;
+
+  try {
+    const inicio =
+      (paginaAtendimentosAtual - 1) *
+      itensPorPaginaAtendimentos;
+
+    const fim =
+      inicio + itensPorPaginaAtendimentos - 1;
+
+    const resposta = await fetch(
+      `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=*&order=created_at.desc`,
+      {
+        headers: {
+          ...headersSupabasePublico("count=exact"),
+          "Range": `${inicio}-${fim}`,
+          "Range-Unit": "items"
+        }
+      }
+    );
+
+    if (!resposta.ok) {
+      throw new Error(await resposta.text());
+    }
+
+    const dados = await resposta.json();
+
+    const contentRange =
+      resposta.headers.get("content-range") || "";
+
+    const totalCabecalho =
+      Number(contentRange.split("/")[1]);
+
+    atendimentosPagina =
+      Array.isArray(dados)
+        ? dados
+        : [];
+
+    totalAtendimentosServidor =
+      Number.isFinite(totalCabecalho)
+        ? totalCabecalho
+        : atendimentosAnaliticos.length;
+
+    paginacaoServidorAtiva = true;
+
+    const totalPaginas =
+      totalPaginasAtendimentos(
+        totalAtendimentosServidor
+      );
+
+    if (
+      paginaAtendimentosAtual >
+      totalPaginas
+    ) {
+      paginaAtendimentosAtual =
+        totalPaginas;
+
+      carregandoPaginaAtendimentos = false;
+      await carregarPaginaAtendimentosServidor();
+      return;
+    }
+
+    renderizarTabela();
+  } catch (erro) {
+    console.error(
+      "Erro na paginação do Supabase:",
+      erro
+    );
+
+    // Fallback seguro: mantém o funcionamento antigo.
+    paginacaoServidorAtiva = false;
+    atendimentosPagina = [];
+    totalAtendimentosServidor =
+      atendimentosAnaliticos.length;
+
+    renderizarTabela();
+  } finally {
+    carregandoPaginaAtendimentos = false;
+  }
 }
 
 async function carregarAtendimentosOnline() {
@@ -111,6 +263,8 @@ async function carregarAtendimentosOnline() {
   atualizarRelatorios();
   atualizarBonificacao();
   atualizarPainelEquipe();
+
+  await carregarPaginaAtendimentosServidor();
 }
 
 async function inserirAtendimentoOnline(registro) {
@@ -614,7 +768,12 @@ function obterFiltrados() {
   const canal = $("filtroCanal").value;
   const resolutividade = $("filtroResolutividade").value;
 
-  return atendimentos.filter(item => {
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
+
+  return base.filter(item => {
     const texto =
       `${item.codigo} ${item.nome} ${item.cidade} ${item.atendente} ${item.servico} ${item.relato || ""}`
         .toLowerCase();
@@ -806,6 +965,7 @@ async function salvarAvaliacaoAtendimento() {
     atualizarRelatorios();
     atualizarBonificacao();
     atualizarPainelEquipe();
+    await carregarPaginaAtendimentosServidor();
   } catch (erro) {
     console.error(
       "Erro ao salvar avaliação:",
@@ -824,18 +984,43 @@ async function salvarAvaliacaoAtendimento() {
 }
 
 function renderizarTabela() {
-  const lista = obterFiltrados();
+  const usandoServidor =
+    paginacaoServidorAtiva &&
+    !filtrosTabelaAtivos();
+
+  const lista =
+    usandoServidor
+      ? atendimentosPagina
+      : obterFiltrados();
+
+  const totalItens =
+    usandoServidor
+      ? totalAtendimentosServidor
+      : lista.length;
 
   $("contadorRegistros").textContent =
-    `Total de ${lista.length} ${lista.length === 1 ? "registro" : "registros"}`;
+    `Total de ${totalItens} ${totalItens === 1 ? "registro" : "registros"}`;
 
-  const totalPaginas = totalPaginasAtendimentos(lista.length);
-  if (paginaAtendimentosAtual > totalPaginas) paginaAtendimentosAtual = totalPaginas;
+  const totalPaginas =
+    totalPaginasAtendimentos(totalItens);
 
-  const inicio = (paginaAtendimentosAtual - 1) * itensPorPaginaAtendimentos;
-  const listaPagina = lista.slice(inicio, inicio + itensPorPaginaAtendimentos);
+  if (paginaAtendimentosAtual > totalPaginas) {
+    paginaAtendimentosAtual = totalPaginas;
+  }
 
-  if (!lista.length) {
+  const inicio =
+    (paginaAtendimentosAtual - 1) *
+    itensPorPaginaAtendimentos;
+
+  const listaPagina =
+    usandoServidor
+      ? lista
+      : lista.slice(
+          inicio,
+          inicio + itensPorPaginaAtendimentos
+        );
+
+  if (!totalItens) {
     tabela.innerHTML = `
       <tr>
         <td colspan="12" style="text-align:center;padding:36px;color:#91a4b7">
@@ -952,7 +1137,7 @@ function renderizarTabela() {
   }).join("");
 
 
-  renderizarPaginacaoAtendimentos(lista.length);
+  renderizarPaginacaoAtendimentos(totalItens);
 }
 
 function renderizarPaginacaoAtendimentos(totalItens) {
@@ -1036,6 +1221,7 @@ async function excluirAtendimento(id) {
     atualizarRelatorios();
     atualizarBonificacao();
     atualizarPainelEquipe();
+    await carregarPaginaAtendimentosServidor();
   } catch (erro) {
     console.error(
       "Erro ao excluir atendimento:",
@@ -1157,6 +1343,7 @@ form.addEventListener("submit", async e => {
     atualizarRelatorios();
     atualizarBonificacao();
     atualizarPainelEquipe();
+    await carregarPaginaAtendimentosServidor();
   } catch (erro) {
     console.error(
       "Erro ao salvar atendimento:",
@@ -1355,7 +1542,7 @@ $("btnLimpar").addEventListener("click", () => {
   $("filtroResolutividade").value = "";
 
   paginaAtendimentosAtual = 1;
-  renderizarTabela();
+  carregarPaginaAtendimentosServidor();
 });
 
 function mostrarDataAtual() {

@@ -709,9 +709,6 @@ export default function App() {
                     Resolvido
                   </option>
 
-                  <option value="Não resolvido">
-                    Não resolvido
-                  </option>
                 </select>
               </div>
 
@@ -2426,9 +2423,6 @@ export default function App() {
                     Resolvido
                   </option>
 
-                  <option value="Não resolvido">
-                    Não resolvido
-                  </option>
                 </select>
               </div>
 

@@ -12198,3 +12198,174 @@ body.tema-claro .btn-sair-gerencia:hover {
     font-size: 10px !important;
   }
 }
+
+
+/* =========================================================
+   PAGINAÇÃO HUBSOFT — CORREÇÃO DE CLASSES
+   ========================================================= */
+
+#paginacaoAtendimentos {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#paginacaoAtendimentos:empty {
+  display: none;
+}
+
+.paginacao-hubsoft {
+  width: 100%;
+  min-height: 54px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid rgba(61, 96, 126, 0.48);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(8, 24, 38, .96), rgba(4, 16, 27, .96));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+}
+
+.paginacao-hubsoft-esquerda,
+.paginacao-hubsoft-direita {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.paginacao-hubsoft-label,
+.paginacao-hubsoft-resumo,
+.paginacao-hubsoft-pagina {
+  color: #91a4b7;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.paginacao-hubsoft-select {
+  width: auto !important;
+  min-width: 190px !important;
+  height: 34px !important;
+  padding: 0 30px 0 10px !important;
+  border: 1px solid #294158 !important;
+  border-radius: 7px !important;
+  outline: none !important;
+  background: #071725 !important;
+  color: #eaf2f8 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+
+.paginacao-hubsoft-select:focus {
+  border-color: #168fff !important;
+  box-shadow: 0 0 0 3px rgba(18, 140, 255, .10) !important;
+}
+
+.paginacao-hubsoft-btn {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(61, 96, 126, .68) !important;
+  border-radius: 50% !important;
+  background: rgba(13, 32, 48, .96) !important;
+  color: #d7e3ec !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  cursor: pointer;
+  transition: .16s ease;
+}
+
+.paginacao-hubsoft-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #168fff !important;
+  background: rgba(7, 91, 174, .75) !important;
+  color: #fff !important;
+}
+
+.paginacao-hubsoft-btn:disabled {
+  opacity: .32 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.paginacao-hubsoft-btn-ativo {
+  border-color: #168fff !important;
+  background: linear-gradient(180deg, #1592ff, #0072dc) !important;
+  color: #fff !important;
+  box-shadow: 0 5px 15px rgba(0, 112, 230, .24);
+}
+
+/* Tema claro */
+body.tema-claro .paginacao-hubsoft {
+  border-color: #dce5ed;
+  background: linear-gradient(180deg, #fff, #f7f9fb);
+  box-shadow: 0 7px 20px rgba(31, 52, 73, .07);
+}
+
+body.tema-claro .paginacao-hubsoft-label,
+body.tema-claro .paginacao-hubsoft-resumo,
+body.tema-claro .paginacao-hubsoft-pagina {
+  color: #657688;
+}
+
+body.tema-claro .paginacao-hubsoft-select {
+  border-color: #d7e1e9 !important;
+  background: #fff !important;
+  color: #314354 !important;
+}
+
+body.tema-claro .paginacao-hubsoft-btn {
+  border-color: #d7e1e9 !important;
+  background: #fff !important;
+  color: #506173 !important;
+}
+
+body.tema-claro .paginacao-hubsoft-btn:hover:not(:disabled) {
+  border-color: #9bcfff !important;
+  background: #edf6ff !important;
+  color: #075fae !important;
+}
+
+body.tema-claro .paginacao-hubsoft-btn-ativo {
+  border-color: #168fff !important;
+  background: linear-gradient(180deg, #168fff, #0877df) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 820px) {
+  .paginacao-hubsoft {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .paginacao-hubsoft-esquerda,
+  .paginacao-hubsoft-direita {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 560px) {
+  .paginacao-hubsoft-select {
+    min-width: 165px !important;
+  }
+
+  .paginacao-hubsoft-label {
+    display: none;
+  }
+
+  .paginacao-hubsoft-btn {
+    width: 31px !important;
+    min-width: 31px !important;
+    height: 31px !important;
+  }
+}
+

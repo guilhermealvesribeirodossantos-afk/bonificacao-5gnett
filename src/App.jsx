@@ -294,9 +294,11 @@ export default function App() {
               <div className="usuario-identidade-v6">
                 <div className="avatar avatar-premium-v6">
                   <img
+                    id="fotoGerenciaTopbar"
                     src={perfil}
-                    alt="Perfil"
+                    alt="Perfil da Gerência"
                     className="usuario-foto"
+                    data-foto-padrao={perfil}
                   />
                 </div>
 
@@ -1809,6 +1811,60 @@ export default function App() {
             </section>
 
             <section className="config-painel-v2">
+              <article className="config-secao-v2 config-foto-gerencia-v1">
+                <div className="config-secao-head-v2">
+                  <div>
+                    <span className="workspace-kicker">
+                      PERFIL DA GERÊNCIA
+                    </span>
+
+                    <h3>
+                      Foto do gerente
+                    </h3>
+
+                    <p>
+                      A foto cadastrada será exibida na barra superior quando a Gerência estiver conectada.
+                    </p>
+                  </div>
+
+                  <span className="config-admin-badge">
+                    ADMIN
+                  </span>
+                </div>
+
+                <div className="config-foto-gerencia-conteudo-v1">
+                  <div className="config-foto-gerencia-avatar-v1">
+                    <img
+                      id="fotoGerenciaPreview"
+                      src={perfil}
+                      alt="Foto da Gerência"
+                      data-foto-padrao={perfil}
+                    />
+                  </div>
+
+                  <div className="config-foto-gerencia-acoes-v1">
+                    <input
+                      id="inputFotoGerencia"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      hidden
+                    />
+
+                    <button
+                      id="btnAlterarFotoGerencia"
+                      className="btn-alterar-foto-v1"
+                      type="button"
+                    >
+                      Alterar foto da Gerência
+                    </button>
+
+                    <small id="statusFotoGerencia">
+                      PNG, JPG ou WEBP
+                    </small>
+                  </div>
+                </div>
+              </article>
+
               <article className="config-secao-v2 config-equipe-v2">
                 <div className="config-secao-head-v2">
                   <div>

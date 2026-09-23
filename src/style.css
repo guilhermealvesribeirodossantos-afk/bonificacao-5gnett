@@ -12489,3 +12489,148 @@ body.tema-claro .paginacao-hubsoft-btn-ativo {
   }
 }
 
+/* =========================================================
+   FOTO DA GERÊNCIA — CARD COMPACTO / PREMIUM
+   ========================================================= */
+
+.config-foto-gerencia-v1 {
+  overflow: hidden;
+}
+
+.config-foto-gerencia-conteudo-v1 {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid rgba(61, 96, 126, 0.48);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(10, 29, 44, 0.92), rgba(4, 17, 28, 0.94));
+}
+
+.config-foto-gerencia-avatar-v1 {
+  width: 88px;
+  height: 88px;
+  min-width: 88px;
+  padding: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(34, 164, 255, 0.52);
+  border-radius: 50%;
+  background: rgba(8, 29, 45, 0.96);
+  box-shadow:
+    0 0 0 4px rgba(18, 139, 255, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.config-foto-gerencia-avatar-v1 img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.config-foto-gerencia-acoes-v1 {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px 12px;
+}
+
+.btn-alterar-foto-v1 {
+  min-height: 38px;
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(25, 145, 255, 0.50);
+  border-radius: 9px;
+  outline: 0;
+  background:
+    linear-gradient(180deg, rgba(15, 112, 205, 0.92), rgba(5, 77, 148, 0.94));
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15px;
+  box-shadow: 0 8px 20px rgba(0, 105, 210, 0.15);
+  transition: 0.18s ease;
+}
+
+.btn-alterar-foto-v1:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(63, 174, 255, 0.82);
+  filter: brightness(1.08);
+}
+
+.btn-alterar-foto-v1:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#statusFotoGerencia {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(22, 216, 135, 0.20);
+  border-radius: 999px;
+  background: rgba(22, 216, 135, 0.07);
+  color: #74e8b1;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+body.tema-claro .config-foto-gerencia-conteudo-v1 {
+  border-color: #dce6ee;
+  background: linear-gradient(135deg, #ffffff, #f5f9fc);
+}
+
+body.tema-claro .config-foto-gerencia-avatar-v1 {
+  border-color: rgba(13, 126, 226, 0.35);
+  background: #ffffff;
+  box-shadow:
+    0 0 0 4px rgba(18, 139, 255, 0.05),
+    0 8px 22px rgba(30, 63, 91, 0.10);
+}
+
+body.tema-claro .btn-alterar-foto-v1 {
+  border-color: #168fff;
+  background: linear-gradient(180deg, #168fff, #0875d9);
+  color: #ffffff;
+}
+
+body.tema-claro #statusFotoGerencia {
+  border-color: rgba(14, 163, 94, 0.20);
+  background: rgba(14, 163, 94, 0.07);
+  color: #087744;
+}
+
+@media (max-width: 560px) {
+  .config-foto-gerencia-conteudo-v1 {
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .config-foto-gerencia-avatar-v1 {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+  }
+
+  .config-foto-gerencia-acoes-v1 {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .btn-alterar-foto-v1 {
+    width: 100%;
+  }
+}
+

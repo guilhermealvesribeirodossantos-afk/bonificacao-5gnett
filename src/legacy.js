@@ -27,6 +27,13 @@ function urlFotoEquipe(nome) {
 }
 
 let atendimentos = [];
+
+// Base analítica separada da tabela.
+// Nesta Etapa 1 ela recebe o mesmo snapshot completo do Supabase.
+// Na Etapa 2, a tabela poderá buscar apenas a página necessária sem
+// alterar Equipe, Bonificação, Relatórios, Dashboard ou Fechamento Mensal.
+let atendimentosAnaliticos = [];
+
 let editandoId = null;
 let bancoOnline = false;
 let sessaoGerencia = null;
@@ -88,7 +95,16 @@ async function carregarAtendimentosOnline() {
     throw new Error(await resposta.text());
   }
 
-  atendimentos = await resposta.json();
+  const dados = await resposta.json();
+
+  atendimentos = Array.isArray(dados)
+    ? [...dados]
+    : [];
+
+  atendimentosAnaliticos = Array.isArray(dados)
+    ? [...dados]
+    : [];
+
   bancoOnline = true;
   salvarBackupLocal();
   atualizarTela();
@@ -615,9 +631,14 @@ function obterFiltrados() {
 }
 
 function atualizarCards() {
-  const total = atendimentos.length;
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
 
-  const resolvidos = atendimentos.filter(
+  const total = base.length;
+
+  const resolvidos = base.filter(
     a => a.resolutividade === "Resolvido"
   ).length;
 
@@ -768,6 +789,12 @@ async function salvarAvaliacaoAtendimento() {
       );
 
     atendimentos = atendimentos.map(a =>
+      String(a.id) === String(avaliacaoAtual.id)
+        ? atualizado
+        : a
+    );
+
+    atendimentosAnaliticos = atendimentosAnaliticos.map(a =>
       String(a.id) === String(avaliacaoAtual.id)
         ? atualizado
         : a
@@ -1000,6 +1027,10 @@ async function excluirAtendimento(id) {
       a => String(a.id) !== String(id)
     );
 
+    atendimentosAnaliticos = atendimentosAnaliticos.filter(
+      a => String(a.id) !== String(id)
+    );
+
     salvarBackupLocal();
     atualizarTela();
     atualizarRelatorios();
@@ -1106,11 +1137,18 @@ form.addEventListener("submit", async e => {
           ? atualizado
           : a
       );
+
+      atendimentosAnaliticos = atendimentosAnaliticos.map(a =>
+        String(a.id) === String(editandoId)
+          ? atualizado
+          : a
+      );
     } else {
       const novo =
         await inserirAtendimentoOnline(registro);
 
       atendimentos.unshift(novo);
+      atendimentosAnaliticos.unshift(novo);
     }
 
     salvarBackupLocal();
@@ -1599,7 +1637,12 @@ function atualizarPainelEquipe(
       ? nome
       : "Guilherme";
 
-  const itens = atendimentos.filter(
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
+
+  const itens = base.filter(
     item =>
       String(item.atendente || "").trim() ===
       atendentePerfilSelecionado
@@ -1903,7 +1946,12 @@ function obterDadosRelatorio() {
   const atendente =
     $("relatorioAtendente")?.value || "";
 
-  return atendimentos.filter(item => {
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
+
+  return base.filter(item => {
     if (inicial && item.data < inicial) {
       return false;
     }
@@ -2041,7 +2089,12 @@ function obterDadosBonificacao() {
   const final =
     $("bonificacaoDataFinal")?.value || "";
 
-  return atendimentos.filter(item => {
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
+
+  return base.filter(item => {
     if (inicial && item.data < inicial) {
       return false;
     }
@@ -2492,7 +2545,12 @@ function atendimentosDaCompetencia(
     mes
   );
 
-  return atendimentos.filter(item =>
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
+
+  return base.filter(item =>
     item.data &&
     item.data >= inicio &&
     item.data < fimExclusivo
@@ -3837,6 +3895,11 @@ configurarUploadFotoGerencia();
     atendimentos =
       Array.isArray(backup)
         ? backup
+        : [];
+
+    atendimentosAnaliticos =
+      Array.isArray(backup)
+        ? [...backup]
         : [];
 
     atualizarTela();

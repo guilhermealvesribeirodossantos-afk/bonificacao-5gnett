@@ -404,7 +404,7 @@ function abrirModal(item = null) {
     $("nome").value = item.nome || "";
     $("canal").value = item.canal || "Chatmix";
     $("servico").value = item.servico || "";
-    $("resolutividade").value = item.resolutividade || "Resolvido";
+    $("resolutividade").value = "Resolvido";
     $("link").value = item.link || "";
     $("relato").value = item.relato || "";
 
@@ -878,7 +878,7 @@ form.addEventListener("submit", async e => {
     cidade: $("cidade").value.trim(),
     canal,
     servico: $("servico").value,
-    resolutividade: $("resolutividade").value,
+    resolutividade: "Resolvido",
     link:
       canal === "Chatmix"
         ? $("link").value.trim()
@@ -3471,4 +3471,3 @@ async function iniciarSistema() {
 }
 
 iniciarSistema();
-

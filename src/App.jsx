@@ -764,6 +764,12 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
+
+              <div
+                id="paginacaoAtendimentos"
+                className="paginacao-atendimentos"
+                aria-label="Paginação dos atendimentos"
+              ></div>
             </section>
           </div>
 

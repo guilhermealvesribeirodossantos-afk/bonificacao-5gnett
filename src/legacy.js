@@ -2299,6 +2299,124 @@ function competenciaAtual() {
   };
 }
 
+
+let competenciaFechamentoSelecionada = null;
+
+function rotuloCompetencia(ano, mes) {
+  return new Date(
+    Number(ano),
+    Number(mes) - 1,
+    1
+  ).toLocaleDateString(
+    "pt-BR",
+    {
+      month: "long",
+      year: "numeric"
+    }
+  ).toUpperCase();
+}
+
+function competenciaSelecionadaFechamento() {
+  const seletor =
+    $("seletorCompetenciaFechamento");
+
+  if (seletor?.value) {
+    const [ano, mes] =
+      seletor.value
+        .split("-")
+        .map(Number);
+
+    if (ano && mes) {
+      competenciaFechamentoSelecionada = {
+        ano,
+        mes,
+        competencia:
+          rotuloCompetencia(
+            ano,
+            mes
+          )
+      };
+    }
+  }
+
+  return (
+    competenciaFechamentoSelecionada ||
+    competenciaAtual()
+  );
+}
+
+function montarSeletorCompetenciaFechamento() {
+  const container =
+    $("fechamentoCompetencia");
+
+  if (!container) return;
+
+  const atual =
+    competenciaSelecionadaFechamento();
+
+  const hoje = new Date();
+  const opcoes = [];
+
+  for (let indice = 0; indice < 24; indice += 1) {
+    const data =
+      new Date(
+        hoje.getFullYear(),
+        hoje.getMonth() - indice,
+        1
+      );
+
+    const ano =
+      data.getFullYear();
+
+    const mes =
+      data.getMonth() + 1;
+
+    opcoes.push({
+      ano,
+      mes,
+      valor:
+        `${ano}-${String(mes).padStart(2, "0")}`,
+      rotulo:
+        rotuloCompetencia(
+          ano,
+          mes
+        )
+    });
+  }
+
+  const valorAtual =
+    `${atual.ano}-${String(atual.mes).padStart(2, "0")}`;
+
+  container.innerHTML = `
+    <select
+      id="seletorCompetenciaFechamento"
+      class="seletor-competencia-fechamento-v1"
+      aria-label="Competência do fechamento mensal"
+    >
+      ${opcoes.map(item => `
+        <option
+          value="${item.valor}"
+          ${item.valor === valorAtual ? "selected" : ""}
+        >
+          ${item.rotulo}
+        </option>
+      `).join("")}
+    </select>
+  `;
+
+  const seletor =
+    $("seletorCompetenciaFechamento");
+
+  seletor?.addEventListener(
+    "change",
+    async () => {
+      competenciaSelecionadaFechamento();
+      previaFechamentoAtual = null;
+      await atualizarStatusFechamentoMensal();
+    }
+  );
+}
+
 function intervaloCompetencia(ano, mes) {
   const inicio =
     `${ano}-${String(mes).padStart(2, "0")}-01`;
@@ -2540,14 +2658,15 @@ async function atualizarStatusFechamentoMensal() {
     return;
   }
 
+  if (!$("seletorCompetenciaFechamento")) {
+    montarSeletorCompetenciaFechamento();
+  }
+
   const {
     ano,
     mes,
     competencia
-  } = competenciaAtual();
-
-  competenciaEl.textContent =
-    competencia;
+  } = competenciaSelecionadaFechamento();
 
   if (!gerenciaAutorizada) {
     statusEl.querySelector(
@@ -2764,7 +2883,7 @@ async function fecharMesBonificacao() {
     ano,
     mes,
     competencia
-  } = competenciaAtual();
+  } = competenciaSelecionadaFechamento();
 
   const listaMes =
     atendimentosDaCompetencia(
@@ -3344,6 +3463,58 @@ async function abrirHistoricoFechamentos() {
     `;
   }
 }
+
+function aplicarEstiloSeletorCompetenciaFechamento() {
+  if (
+    document.getElementById(
+      "estiloSeletorCompetenciaFechamento"
+    )
+  ) {
+    return;
+  }
+
+  const estilo =
+    document.createElement("style");
+
+  estilo.id =
+    "estiloSeletorCompetenciaFechamento";
+
+  estilo.textContent = `
+    .seletor-competencia-fechamento-v1 {
+      min-width: 180px;
+      height: 36px;
+      padding: 0 34px 0 11px;
+      border: 1px solid rgba(75, 120, 155, .42);
+      border-radius: 9px;
+      outline: none;
+      background: #071725;
+      color: #eaf4fc;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .25px;
+      cursor: pointer;
+    }
+
+    .seletor-competencia-fechamento-v1:focus {
+      border-color: rgba(34, 164, 255, .78);
+      box-shadow: 0 0 0 3px rgba(34, 164, 255, .09);
+    }
+
+    body.tema-claro .seletor-competencia-fechamento-v1 {
+      border-color: #d7e3ec;
+      background: #ffffff;
+      color: #173247;
+    }
+  `;
+
+  document.head.appendChild(
+    estilo
+  );
+}
+
+aplicarEstiloSeletorCompetenciaFechamento();
+montarSeletorCompetenciaFechamento();
 
 if ($("btnFecharMes")) {
   $("btnFecharMes").addEventListener(

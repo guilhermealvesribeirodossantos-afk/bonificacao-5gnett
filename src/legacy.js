@@ -30,6 +30,28 @@ let editandoId = null;
 let bancoOnline = false;
 let sessaoGerencia = null;
 let gerenciaAutorizada = false;
+
+let paginaAtendimentosAtual = 1;
+let itensPorPaginaAtendimentos = 50;
+
+function totalPaginasAtendimentos(total) {
+  return Math.max(1, Math.ceil(total / itensPorPaginaAtendimentos));
+}
+
+function irParaPaginaAtendimentos(pagina) {
+  const total = totalPaginasAtendimentos(obterFiltrados().length);
+  paginaAtendimentosAtual = Math.min(Math.max(1, Number(pagina) || 1), total);
+  renderizarTabela();
+}
+
+function alterarItensPorPaginaAtendimentos(valor) {
+  itensPorPaginaAtendimentos = Number(valor) || 50;
+  paginaAtendimentosAtual = 1;
+  renderizarTabela();
+}
+
+window.irParaPaginaAtendimentos = irParaPaginaAtendimentos;
+window.alterarItensPorPaginaAtendimentos = alterarItensPorPaginaAtendimentos;
 const GERENCIA_UID = "f29980e0-5fbd-4d35-a374-945ed68e99fd";
 const AUTH_STORAGE_KEY = "5gnett_gerencia_session";
 
@@ -642,9 +664,13 @@ function renderizarTabela() {
   const lista = obterFiltrados();
 
   $("contadorRegistros").textContent =
-    `Total de ${lista.length} ${
-      lista.length === 1 ? "registro" : "registros"
-    }`;
+    `Total de ${lista.length} ${lista.length === 1 ? "registro" : "registros"}`;
+
+  const totalPaginas = totalPaginasAtendimentos(lista.length);
+  if (paginaAtendimentosAtual > totalPaginas) paginaAtendimentosAtual = totalPaginas;
+
+  const inicio = (paginaAtendimentosAtual - 1) * itensPorPaginaAtendimentos;
+  const listaPagina = lista.slice(inicio, inicio + itensPorPaginaAtendimentos);
 
   if (!lista.length) {
     tabela.innerHTML = `
@@ -653,11 +679,11 @@ function renderizarTabela() {
           Nenhum atendimento encontrado.
         </td>
       </tr>`;
-
+    renderizarPaginacaoAtendimentos(0);
     return;
   }
 
-  tabela.innerHTML = lista.map((item, i) => {
+  tabela.innerHTML = listaPagina.map((item, i) => {
     const resolvido =
       item.resolutividade === "Resolvido";
 
@@ -694,7 +720,7 @@ function renderizarTabela() {
 
     return `
       <tr>
-        <td>${i + 1}</td>
+        <td>${inicio + i + 1}</td>
         <td>${formatarData(item.data)}</td>
         <td>${escaparHTML(item.codigo)}</td>
         <td>${escaparHTML(item.nome)}</td>
@@ -758,6 +784,49 @@ function renderizarTabela() {
         </td>
       </tr>`;
   }).join("");
+}
+
+
+  renderizarPaginacaoAtendimentos(lista.length);
+}
+
+function renderizarPaginacaoAtendimentos(totalItens) {
+  const container = $("paginacaoAtendimentos");
+  if (!container) return;
+
+  const totalPaginas = totalPaginasAtendimentos(totalItens);
+  const pagina = Math.min(paginaAtendimentosAtual, totalPaginas);
+  const inicio = totalItens ? ((pagina - 1) * itensPorPaginaAtendimentos) + 1 : 0;
+  const fim = Math.min(pagina * itensPorPaginaAtendimentos, totalItens);
+  const opcoes = [3, 5, 10, 15, 20, 50, 100, 150, 200, 400, 600];
+
+  container.innerHTML = `
+    <div class="paginacao-hubsoft">
+      <div class="paginacao-hubsoft-esquerda">
+        <span class="paginacao-hubsoft-label">Itens por página</span>
+        <select class="paginacao-hubsoft-select"
+          onchange="alterarItensPorPaginaAtendimentos(this.value)">
+          ${opcoes.map(valor => `
+            <option value="${valor}" ${valor === itensPorPaginaAtendimentos ? "selected" : ""}>
+              Exibir ${valor} itens por página
+            </option>`).join("")}
+        </select>
+        <span class="paginacao-hubsoft-resumo">${inicio}-${fim} de ${totalItens}</span>
+      </div>
+
+      <div class="paginacao-hubsoft-direita">
+        <span class="paginacao-hubsoft-pagina">Página: ${pagina} de ${totalPaginas}</span>
+        <button type="button" class="paginacao-hubsoft-btn"
+          onclick="irParaPaginaAtendimentos(1)" ${pagina <= 1 ? "disabled" : ""}>«</button>
+        <button type="button" class="paginacao-hubsoft-btn"
+          onclick="irParaPaginaAtendimentos(${pagina - 1})" ${pagina <= 1 ? "disabled" : ""}>‹</button>
+        <button type="button" class="paginacao-hubsoft-btn paginacao-hubsoft-btn-ativo">${pagina}</button>
+        <button type="button" class="paginacao-hubsoft-btn"
+          onclick="irParaPaginaAtendimentos(${pagina + 1})" ${pagina >= totalPaginas ? "disabled" : ""}>›</button>
+        <button type="button" class="paginacao-hubsoft-btn"
+          onclick="irParaPaginaAtendimentos(${totalPaginas})" ${pagina >= totalPaginas ? "disabled" : ""}>»</button>
+      </div>
+    </div>`;
 }
 
 function atualizarTela() {
@@ -1091,15 +1160,15 @@ document.addEventListener("keydown", e => {
   }
 });
 
-$("pesquisa").addEventListener(
-  "input",
-  renderizarTabela
-);
+$("pesquisa").addEventListener("input", () => {
+  paginaAtendimentosAtual = 1;
+  renderizarTabela();
+});
 
-$("btnFiltrar").addEventListener(
-  "click",
-  renderizarTabela
-);
+$("btnFiltrar").addEventListener("click", () => {
+  paginaAtendimentosAtual = 1;
+  renderizarTabela();
+});
 
 $("btnLimpar").addEventListener("click", () => {
   $("pesquisa").value = "";
@@ -1109,6 +1178,7 @@ $("btnLimpar").addEventListener("click", () => {
   $("filtroCanal").value = "";
   $("filtroResolutividade").value = "";
 
+  paginaAtendimentosAtual = 1;
   renderizarTabela();
 });
 

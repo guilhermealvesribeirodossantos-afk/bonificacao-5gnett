@@ -718,8 +718,11 @@ function renderizarTabela() {
         `${linkChatmix}${relatoChatmix}`;
     }
 
+    const pontuacaoJaAtribuida =
+      Boolean(item.classificacao) && Number(item.pontos || 0) > 0;
+
     return `
-      <tr>
+      <tr class="${pontuacaoJaAtribuida ? "atendimento-pontuado" : ""}">
         <td>${inicio + i + 1}</td>
         <td>${formatarData(item.data)}</td>
         <td>${escaparHTML(item.codigo)}</td>
@@ -757,10 +760,10 @@ function renderizarTabela() {
               ? `<button class="acao-pontuar" type="button"
                   onclick="pontuarAtendimento('${item.id}')"
                   title="Classificar pontuação">
-                  ⭐ ${escaparHTML(rotuloPontuacao(item))}
+                  ${pontuacaoJaAtribuida ? "✓ " : "⭐ "}${escaparHTML(rotuloPontuacao(item))}
                 </button>`
-              : `<span class="pontuacao-leitura">
-                  ⭐ ${escaparHTML(rotuloPontuacao(item))}
+              : `<span class="pontuacao-leitura ${pontuacaoJaAtribuida ? "pontuacao-ja-dada" : ""}">
+                  ${pontuacaoJaAtribuida ? "✓ " : "⭐ "}${escaparHTML(rotuloPontuacao(item))}
                 </span>`
           }
         </td>

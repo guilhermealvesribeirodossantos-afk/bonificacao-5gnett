@@ -1,3 +1,6 @@
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+
 // 5GNETT legacy logic adapted for the React shell.
 // This file is loaded after App.jsx mounts the existing interface.
 // The original logic is intentionally preserved to avoid changing the application's behavior.
@@ -3337,6 +3340,141 @@ function rotuloMetaHistorico(
   )} pts faltam`;
 }
 
+function normalizarNomeArquivo(valor = "") {
+  return String(valor)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function baixarRelatorioFechamentoPDF(chave) {
+  const grupo = window.__historicoFechamentosPDF?.[chave];
+
+  if (!grupo) {
+    alert("Não foi possível localizar os dados deste fechamento.");
+    return;
+  }
+
+  const porNome = new Map(
+    grupo.registros.map(item => [String(item.atendente || ""), item])
+  );
+
+  const registros = ATENDENTES_BONIFICACAO
+    .map(nome => porNome.get(nome))
+    .filter(Boolean);
+
+  const totalAtendimentos = registros.reduce(
+    (soma, item) => soma + Number(item.total_atendimentos || 0),
+    0
+  );
+
+  const totalPontos = registros.reduce(
+    (soma, item) => soma + Number(item.pontos_liquidos || 0),
+    0
+  );
+
+  const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+
+  doc.setFillColor(7, 17, 27);
+  doc.rect(0, 0, 297, 32, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("5GNETT — RELATÓRIO DE FECHAMENTO MENSAL", 14, 14);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(185, 201, 216);
+  doc.text("Central de Atendimento • Gerência • Bonificação", 14, 21);
+
+  doc.setTextColor(25, 35, 45);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text(String(grupo.competencia || chave), 14, 43);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(90, 102, 115);
+  doc.text(`Status: FECHADO`, 14, 50);
+  doc.text(`Total de atendimentos: ${totalAtendimentos}`, 70, 50);
+  doc.text(`Pontos líquidos somados: ${totalPontos} pts`, 145, 50);
+
+  const linhas = registros.map(item => {
+    const pontos = Number(item.pontos_liquidos || 0);
+    const meta250 = pontos >= 250 ? "ATINGIDA" : `${Math.max(0, 250 - pontos)} pts faltam`;
+    const meta350 = pontos >= 350 ? "ATINGIDA" : `${Math.max(0, 350 - pontos)} pts faltam`;
+
+    return [
+      String(item.atendente || ""),
+      String(Number(item.total_atendimentos || 0)),
+      `${Number(item.resolutividade || 0).toFixed(0)}%`,
+      `${Number(item.pontos_brutos || 0)} pts`,
+      `${Number(item.penalizacoes || 0)} pts`,
+      `${pontos} pts`,
+      meta250,
+      meta350
+    ];
+  });
+
+  autoTable(doc, {
+    startY: 58,
+    head: [[
+      "Atendente",
+      "Atendimentos",
+      "Resolutividade",
+      "Pontos brutos",
+      "Penalizações",
+      "Pontos líquidos",
+      "Meta 250",
+      "Faixa 350"
+    ]],
+    body: linhas,
+    theme: "grid",
+    styles: {
+      font: "helvetica",
+      fontSize: 8.5,
+      cellPadding: 3.2,
+      textColor: [35, 45, 55],
+      lineColor: [215, 222, 230],
+      lineWidth: 0.2
+    },
+    headStyles: {
+      fillColor: [13, 35, 54],
+      textColor: [255, 255, 255],
+      fontStyle: "bold"
+    },
+    alternateRowStyles: {
+      fillColor: [246, 248, 250]
+    },
+    columnStyles: {
+      0: { cellWidth: 38 },
+      1: { halign: "center" },
+      2: { halign: "center" },
+      3: { halign: "center" },
+      4: { halign: "center" },
+      5: { halign: "center", fontStyle: "bold" },
+      6: { halign: "center" },
+      7: { halign: "center" }
+    }
+  });
+
+  const yFinal = (doc.lastAutoTable?.finalY || 80) + 10;
+  doc.setFontSize(8);
+  doc.setTextColor(105, 115, 125);
+  doc.text(
+    "Documento gerado pela Central de Atendimento 5GNETT a partir do fechamento mensal preservado no sistema.",
+    14,
+    yFinal
+  );
+
+  const nome = normalizarNomeArquivo(grupo.competencia || chave) || chave;
+  doc.save(`Fechamento-5GNETT-${nome}.pdf`);
+}
+
+window.baixarRelatorioFechamentoPDF = baixarRelatorioFechamentoPDF;
+
 function renderizarHistoricoFechamentos(
   dados
 ) {
@@ -3387,6 +3525,13 @@ function renderizarHistoricoFechamentos(
         b.ano - a.ano ||
         b.mes - a.mes
     );
+
+  window.__historicoFechamentosPDF = Object.fromEntries(
+    competencias.map(grupo => [
+      `${grupo.ano}-${String(grupo.mes).padStart(2, "0")}`,
+      grupo
+    ])
+  );
 
   definirTexto(
     "historicoTotalCompetencias",
@@ -3482,6 +3627,16 @@ function renderizarHistoricoFechamentos(
                     grupo.competencia
                   )}
                 </h3>
+              </div>
+
+              <div class="historico-competencia-acoes-v2">
+                <button
+                  type="button"
+                  class="historico-btn-download-v2"
+                  onclick="window.baixarRelatorioFechamentoPDF('${grupo.ano}-${String(grupo.mes).padStart(2, "0")}')"
+                >
+                  ↓ Baixar relatório PDF
+                </button>
               </div>
 
               <div class="historico-competencia-indicadores-v1">

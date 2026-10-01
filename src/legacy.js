@@ -1,5 +1,5 @@
 import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
+import { autoTable } from "jspdf-autotable";
 
 // 5GNETT legacy logic adapted for the React shell.
 // This file is loaded after App.jsx mounts the existing interface.

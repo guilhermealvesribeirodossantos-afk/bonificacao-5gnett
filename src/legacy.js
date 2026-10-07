@@ -1832,10 +1832,20 @@ function atualizarPainelEquipe(
       ? atendimentosAnaliticos
       : atendimentos;
 
+  // A pontuação da Equipe é mensal.
+  // O histórico continua preservado em `fechamentos_mensais`,
+  // mas o painel operacional sempre mostra somente a competência atual.
+  const agora = new Date();
+  const anoAtual = agora.getFullYear();
+  const mesAtual = String(agora.getMonth() + 1).padStart(2, "0");
+  const competenciaAtualEquipe = `${anoAtual}-${mesAtual}`;
+
   const itens = base.filter(
     item =>
       String(item.atendente || "").trim() ===
-      atendentePerfilSelecionado
+        atendentePerfilSelecionado &&
+      String(item.data || "").slice(0, 7) ===
+        competenciaAtualEquipe
   );
 
   const total = itens.length;

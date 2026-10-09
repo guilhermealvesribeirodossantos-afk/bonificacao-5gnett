@@ -2772,6 +2772,17 @@ export default function App() {
             </div>
           </section>
 
+          <div className="campo campo-grande avaliacao-justificativa" id="grupoJustificativaErro">
+            <label htmlFor="justificativaErro">Justificativa do erro <span id="justificativaErroObrigatoria">(obrigatória quando houver penalização)</span></label>
+            <textarea
+              id="justificativaErro"
+              rows={3}
+              maxLength={1500}
+              placeholder="Descreva o erro cometido, o que aconteceu e o motivo da penalização..."
+            />
+            <small>Registre uma justificativa objetiva para consulta posterior no histórico do atendimento.</small>
+          </div>
+
           <div className="avaliacao-resultado">
             <div>
               <span>

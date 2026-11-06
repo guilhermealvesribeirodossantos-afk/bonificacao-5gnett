@@ -143,7 +143,8 @@ function filtrosTabelaAtivos() {
     $("dataFinal")?.value ||
     $("filtroAtendente")?.value ||
     $("filtroCanal")?.value ||
-    $("filtroResolutividade")?.value
+    $("filtroResolutividade")?.value ||
+    $("filtroOS")?.value
   );
 }
 
@@ -282,6 +283,7 @@ async function inserirAtendimentoOnline(registro) {
 
   if (!resposta.ok) throw new Error(await resposta.text());
   const dados = await resposta.json();
+  if (!dados[0]) throw new Error("O Supabase não retornou o atendimento salvo.");
   return dados[0];
 }
 
@@ -297,6 +299,7 @@ async function atualizarAtendimentoOnline(id, registro) {
 
   if (!resposta.ok) throw new Error(await resposta.text());
   const dados = await resposta.json();
+  if (!dados[0]) throw new Error("O Supabase não retornou o atendimento atualizado.");
   return dados[0];
 }
 
@@ -683,7 +686,7 @@ function atualizarCamposCanal() {
     grupoLink.style.display = "none";
     grupoRelato.classList.add("ativo");
 
-    $("link").required = false;
+    $("protocoloAtendimento").required = false;
     $("relato").required = true;
 
     if (labelRelato) {
@@ -703,7 +706,7 @@ function atualizarCamposCanal() {
     grupoLink.style.display = "flex";
     grupoRelato.classList.add("ativo");
 
-    $("link").required = true;
+    $("protocoloAtendimento").required = true;
     $("relato").required = true;
 
     if (labelRelato) {
@@ -712,12 +715,12 @@ function atualizarCamposCanal() {
 
     if (textareaRelato) {
       textareaRelato.placeholder =
-        "Descreva o que foi tratado com o cliente durante o atendimento no Chatmix...";
+        "Descreva o que foi tratado com o cliente durante o atendimento no ChatISP...";
     }
 
     if (ajudaRelato) {
       ajudaRelato.textContent =
-        "Registre aqui as principais informações tratadas com o cliente no Chatmix.";
+        "Registre aqui as principais informações tratadas com o cliente no ChatISP.";
     }
   }
 }
@@ -734,9 +737,13 @@ function abrirModal(item = null) {
     $("cidade").value = item.cidade || "";
     $("nome").value = item.nome || "";
     $("canal").value = item.canal || "Chatmix";
-    $("servico").value = item.servico || "";
-    $("resolutividade").value = "Resolvido";
-    $("link").value = item.link || "";
+    $("teveOS").value =
+      item.teve_os === true
+        ? "true"
+        : item.teve_os === false
+          ? "false"
+          : "";
+    $("protocoloAtendimento").value = item.link || "";
     $("relato").value = item.relato || "";
 
     modal.querySelector(".modal-header h2").textContent =
@@ -748,19 +755,50 @@ function abrirModal(item = null) {
 
     $("data").value = hojeISO();
     $("canal").value = "Chatmix";
-    $("resolutividade").value = "Resolvido";
+    $("teveOS").value = "";
 
     modal.querySelector(".modal-header h2").textContent =
       "Novo Atendimento";
   }
 
+  sincronizarServico(item?.servico || "");
+  atualizarResolutividadePorOS();
   atualizarCamposCanal();
+}
+
+function sincronizarServico(valor) {
+  const select = $("servico");
+  select.value = valor;
+  select.dispatchEvent(new Event("change", { bubbles: true }));
+
+  const erro = $("servicoErro");
+  if (erro) erro.hidden = true;
+  modal.querySelector(".servico-combobox-trigger")
+    ?.removeAttribute("aria-invalid");
+}
+
+function atualizarResolutividadePorOS() {
+  const teveOS = $("teveOS").value;
+  $("resolutividade").value =
+    teveOS === "true"
+      ? "Resolvido parcialmente"
+      : teveOS === "false"
+        ? "Resolvido internamente"
+        : "";
+}
+
+function atendimentoResolvido(item) {
+  return [
+    "Resolvido",
+    "Resolvido internamente"
+  ].includes(item.resolutividade);
 }
 
 function fecharModal() {
   modal.classList.remove("ativo");
   editandoId = null;
   form.reset();
+  sincronizarServico("");
 }
 
 function obterFiltrados() {
@@ -770,6 +808,7 @@ function obterFiltrados() {
   const atendente = $("filtroAtendente").value;
   const canal = $("filtroCanal").value;
   const resolutividade = $("filtroResolutividade").value;
+  const teveOS = $("filtroOS").value;
 
   const base =
     atendimentosAnaliticos.length || !atendimentos.length
@@ -787,6 +826,7 @@ function obterFiltrados() {
     if (atendente && item.atendente !== atendente) return false;
     if (canal && item.canal !== canal) return false;
     if (resolutividade && item.resolutividade !== resolutividade) return false;
+    if (teveOS && String(item.teve_os) !== teveOS) return false;
 
     return true;
   });
@@ -801,7 +841,7 @@ function atualizarCards() {
   const total = base.length;
 
   const resolvidos = base.filter(
-    a => a.resolutividade === "Resolvido"
+    atendimentoResolvido
   ).length;
 
   const naoResolvidos = total - resolvidos;
@@ -1026,7 +1066,7 @@ function renderizarTabela() {
   if (!totalItens) {
     tabela.innerHTML = `
       <tr>
-        <td colspan="12" style="text-align:center;padding:36px;color:#91a4b7">
+        <td colspan="13" style="text-align:center;padding:36px;color:#91a4b7">
           Nenhum atendimento encontrado.
         </td>
       </tr>`;
@@ -1036,7 +1076,7 @@ function renderizarTabela() {
 
   tabela.innerHTML = listaPagina.map((item, i) => {
     const resolvido =
-      item.resolutividade === "Resolvido";
+      atendimentoResolvido(item);
 
     const canal = item.canal || "Chatmix";
 
@@ -1049,16 +1089,11 @@ function renderizarTabela() {
           📞 Ver relato
         </button>`;
     } else {
-      const linkChatmix = item.link
-        ? `<a class="link-chat"
-             href="${escaparHTML(item.link)}"
-             target="_blank"
-             rel="noopener noreferrer">
-             Abrir conversa ↗
-           </a>`
-        : `<span style="color:#71879a">Sem link</span>`;
+      const protocolo = item.link
+        ? `<span class="protocolo-atendimento">${escaparHTML(item.link)}</span>`
+        : `<span style="color:#71879a">Sem protocolo</span>`;
 
-      const relatoChatmix = item.relato
+      const botaoRelato = item.relato
         ? `<button class="btn-relato" type="button"
              onclick="verRelato('${item.id}')">
              💬 Ver relato
@@ -1066,11 +1101,17 @@ function renderizarTabela() {
         : "";
 
       conversa =
-        `${linkChatmix}${relatoChatmix}`;
+        `${protocolo}${botaoRelato}`;
     }
 
     const pontuacaoJaAtribuida =
       Boolean(item.classificacao) && Number(item.pontos || 0) > 0;
+    const ordemServico =
+      item.teve_os === true
+        ? "Sim"
+        : item.teve_os === false
+          ? "Não"
+          : "—";
 
     return `
       <tr class="${pontuacaoJaAtribuida ? "atendimento-pontuado" : ""}">
@@ -1091,11 +1132,12 @@ function renderizarTabela() {
             ${
               canal === "Ligação"
                 ? "📞 Ligação"
-                : "💬 Chatmix"
+                : "💬 ChatISP"
             }
           </span>
         </td>
         <td>${escaparHTML(item.servico)}</td>
+        <td>${ordemServico}</td>
         <td>
           <span class="${
             resolvido
@@ -1126,15 +1168,11 @@ function renderizarTabela() {
             ✎
           </button>
 
-          ${
-            gerenciaAutorizada
-              ? `<button class="acao-excluir" type="button"
-                  onclick="excluirAtendimento('${item.id}')"
-                  title="Excluir">
-                  ×
-                </button>`
-              : ""
-          }
+          <button class="acao-excluir" type="button"
+            onclick="excluirAtendimento('${item.id}')"
+            title="${gerenciaAutorizada ? "Excluir" : "Excluir (requer acesso à Gerência)"}">
+            ×
+          </button>
         </td>
       </tr>`;
   }).join("");
@@ -1188,21 +1226,29 @@ function atualizarTela() {
 }
 
 function editarAtendimento(id) {
-  const item = atendimentos.find(
+  const item = [...atendimentos, ...atendimentosAnaliticos, ...atendimentosPagina].find(
     a => String(a.id) === String(id)
   );
 
-  if (item) abrirModal(item);
+  if (!item) {
+    alert("Não foi possível localizar este atendimento para edição. Atualize a lista e tente novamente.");
+    return;
+  }
+
+  abrirModal(item);
 }
 
 async function excluirAtendimento(id) {
   if (!exigirGerencia()) return;
 
-  const item = atendimentos.find(
+  const item = [...atendimentos, ...atendimentosAnaliticos, ...atendimentosPagina].find(
     a => String(a.id) === String(id)
   );
 
-  if (!item) return;
+  if (!item) {
+    alert("Não foi possível localizar este atendimento para exclusão. Atualize a lista e tente novamente.");
+    return;
+  }
 
   if (!confirm(`Deseja excluir o atendimento de ${item.nome}?`)) {
     return;
@@ -1216,6 +1262,10 @@ async function excluirAtendimento(id) {
     );
 
     atendimentosAnaliticos = atendimentosAnaliticos.filter(
+      a => String(a.id) !== String(id)
+    );
+
+    atendimentosPagina = atendimentosPagina.filter(
       a => String(a.id) !== String(id)
     );
 
@@ -1277,12 +1327,29 @@ form.addEventListener("submit", async e => {
 
   const canal = $("canal").value;
 
+  if (!$("servico").value) {
+    const erro = $("servicoErro");
+    const botaoServico = modal.querySelector(".servico-combobox-trigger");
+
+    if (erro) erro.hidden = false;
+    botaoServico?.setAttribute("aria-invalid", "true");
+    botaoServico?.focus();
+    return;
+  }
+
+  const teveOS = $("teveOS").value;
+  if (!teveOS) {
+    alert("Informe se o atendimento teve ordem de serviço.");
+    $("teveOS").focus();
+    return;
+  }
+
   if (
     canal === "Chatmix" &&
-    !$("link").value.trim()
+    !$("protocoloAtendimento").value.trim()
   ) {
-    alert("Informe o link da conversa no Chatmix.");
-    $("link").focus();
+    alert("Informe o protocolo do atendimento no ChatISP.");
+    $("protocoloAtendimento").focus();
     return;
   }
 
@@ -1290,7 +1357,7 @@ form.addEventListener("submit", async e => {
     alert(
       canal === "Ligação"
         ? "Informe o que o cliente relatou durante a ligação."
-        : "Informe o relato do atendimento realizado no Chatmix."
+        : "Informe o relato do atendimento realizado no ChatISP."
     );
 
     $("relato").focus();
@@ -1305,10 +1372,14 @@ form.addEventListener("submit", async e => {
     cidade: $("cidade").value.trim(),
     canal,
     servico: $("servico").value,
-    resolutividade: "Resolvido",
+    resolutividade:
+      teveOS === "true"
+        ? "Resolvido parcialmente"
+        : "Resolvido internamente",
+    teve_os: teveOS === "true",
     link:
       canal === "Chatmix"
-        ? $("link").value.trim()
+        ? $("protocoloAtendimento").value.trim()
         : "",
     relato: $("relato").value.trim()
   };
@@ -1321,13 +1392,19 @@ form.addEventListener("submit", async e => {
           registro
         );
 
-      atendimentos = atendimentos.map(a =>
-        String(a.id) === String(editandoId)
-          ? atualizado
-          : a
-      );
+      const atualizarLista = lista =>
+        lista.some(a => String(a.id) === String(editandoId))
+          ? lista.map(a =>
+              String(a.id) === String(editandoId)
+                ? atualizado
+                : a
+            )
+          : [atualizado, ...lista];
 
-      atendimentosAnaliticos = atendimentosAnaliticos.map(a =>
+      atendimentos = atualizarLista(atendimentos);
+      atendimentosAnaliticos = atualizarLista(atendimentosAnaliticos);
+
+      atendimentosPagina = atendimentosPagina.map(a =>
         String(a.id) === String(editandoId)
           ? atualizado
           : a
@@ -1362,6 +1439,11 @@ form.addEventListener("submit", async e => {
 $("canal").addEventListener(
   "change",
   atualizarCamposCanal
+);
+
+$("teveOS").addEventListener(
+  "change",
+  atualizarResolutividadePorOS
 );
 
 
@@ -1543,6 +1625,7 @@ $("btnLimpar").addEventListener("click", () => {
   $("filtroAtendente").value = "";
   $("filtroCanal").value = "";
   $("filtroResolutividade").value = "";
+  $("filtroOS").value = "";
 
   paginaAtendimentosAtual = 1;
   carregarPaginaAtendimentosServidor();
@@ -1851,7 +1934,7 @@ function atualizarPainelEquipe(
   const total = itens.length;
 
   const resolvidos = itens.filter(
-    item => item.resolutividade === "Resolvido"
+    atendimentoResolvido
   ).length;
 
   const taxa = total
@@ -2181,7 +2264,7 @@ function atualizarRelatorios() {
 
   const resolvidos =
     lista.filter(
-      a => a.resolutividade === "Resolvido"
+      atendimentoResolvido
     ).length;
 
   const naoResolvidos =
@@ -2244,7 +2327,7 @@ function atualizarRelatorios() {
 
       const ok =
         itens.filter(
-          a => a.resolutividade === "Resolvido"
+          atendimentoResolvido
         ).length;
 
       const nao = qtd - ok;
@@ -2318,7 +2401,7 @@ function atualizarBonificacao() {
 
   const resolvidos =
     lista.filter(
-      a => a.resolutividade === "Resolvido"
+      atendimentoResolvido
     ).length;
 
   const taxaEquipe =
@@ -2361,7 +2444,7 @@ function atualizarBonificacao() {
 
       const ok =
         itens.filter(
-          a => a.resolutividade === "Resolvido"
+          atendimentoResolvido
         ).length;
 
       const percentual =
@@ -2774,8 +2857,7 @@ function montarFechamentoAtendente(
 
   const resolvidos =
     itens.filter(
-      item =>
-        item.resolutividade === "Resolvido"
+      atendimentoResolvido
     ).length;
 
   const naoResolvidos =

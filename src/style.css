@@ -10767,6 +10767,10 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.12);
 }
 
+.servico-combobox-trigger[aria-invalid="true"] {
+  border-color: #ff7777;
+}
+
 .servico-combobox-trigger .selecionado {
   color: #eef6fc;
 }
@@ -10926,6 +10930,10 @@ body.tema-claro .sidebar-footer-slogan-v3 {
   opacity: 0 !important;
   pointer-events: none !important;
   overflow: hidden !important;
+}
+
+.servico-erro {
+  color: #ff7777 !important;
 }
 
 /* Tema claro */

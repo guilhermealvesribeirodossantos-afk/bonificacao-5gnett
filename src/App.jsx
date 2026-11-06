@@ -86,6 +86,10 @@ export default function App() {
     setServicoSelecionado(servico);
     setServicoBusca("");
     setServicoAberto(false);
+    document.getElementById("servicoErro").hidden = true;
+    servicoComboboxRef.current
+      ?.querySelector(".servico-combobox-trigger")
+      ?.removeAttribute("aria-invalid");
 
     requestAnimationFrame(() => {
       const select = document.getElementById("servico");
@@ -2423,6 +2427,7 @@ export default function App() {
                     className="servico-combobox-trigger"
                     onClick={alternarServico}
                     aria-expanded={servicoAberto}
+                    aria-required="true"
                   >
                     <span className={servicoSelecionado ? "selecionado" : ""}>
                       {servicoSelecionado || "Selecione"}
@@ -2480,9 +2485,17 @@ export default function App() {
                     </div>
                   )}
 
+                  <small
+                    id="servicoErro"
+                    className="servico-erro"
+                    role="alert"
+                    hidden
+                  >
+                    Selecione um tipo de serviço.
+                  </small>
+
                   <select
                     id="servico"
-                    required
                     value={servicoSelecionado}
                     onChange={(event) => setServicoSelecionado(event.target.value)}
                     className="servico-select-compatibilidade"
@@ -2506,24 +2519,13 @@ export default function App() {
                   Resolutividade *
                 </label>
 
-                <select
+                <input
                   id="resolutividade"
-                  disabled
+                  type="text"
+                  readOnly
                   aria-readonly="true"
-                >
-                  <option value="">
-                    Definida pela OS
-                  </option>
-
-                  <option value="Resolvido internamente">
-                    Resolvido internamente
-                  </option>
-
-                  <option value="Resolvido parcialmente">
-                    Resolvido parcialmente
-                  </option>
-
-                </select>
+                  placeholder="Selecione a OS para definir"
+                />
               </div>
 
               <div className="campo">

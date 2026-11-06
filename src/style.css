@@ -721,7 +721,7 @@ body.tema-claro .sidebar-bottom {
 
 .filtros {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1.15fr auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1.15fr 1fr auto auto;
   gap: 12px;
   align-items: end;
   margin-bottom: 24px;
@@ -3584,6 +3584,14 @@ footer {
 #paginaAtendimentos .link-chat {
   color: #61b2ff !important;
   border-color: rgba(7, 135, 255, .30) !important;
+}
+
+#paginaAtendimentos .protocolo-atendimento {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: #61b2ff;
+  font-size: 10px;
 }
 
 #paginaAtendimentos .btn-relato {
@@ -13309,4 +13317,38 @@ body.tema-claro .historico-competencia-v1 button[onclick*="baixar"] {
     width: 100% !important;
     min-height: 38px !important;
   }
+}
+
+/* Ajusta a tabela de atendimentos à nova coluna de OS. */
+#paginaAtendimentos .table-container th:nth-child(1),
+#paginaAtendimentos .table-container td:nth-child(1) { width: 3% !important; }
+#paginaAtendimentos .table-container th:nth-child(2),
+#paginaAtendimentos .table-container td:nth-child(2) { width: 7% !important; }
+#paginaAtendimentos .table-container th:nth-child(3),
+#paginaAtendimentos .table-container td:nth-child(3) { width: 6% !important; }
+#paginaAtendimentos .table-container th:nth-child(4),
+#paginaAtendimentos .table-container td:nth-child(4) { width: 14% !important; }
+#paginaAtendimentos .table-container th:nth-child(5),
+#paginaAtendimentos .table-container td:nth-child(5) { width: 7% !important; }
+#paginaAtendimentos .table-container th:nth-child(6),
+#paginaAtendimentos .table-container td:nth-child(6) { width: 7% !important; }
+#paginaAtendimentos .table-container th:nth-child(7),
+#paginaAtendimentos .table-container td:nth-child(7) { width: 7% !important; }
+#paginaAtendimentos .table-container th:nth-child(8),
+#paginaAtendimentos .table-container td:nth-child(8) { width: 9% !important; }
+#paginaAtendimentos .table-container th:nth-child(9),
+#paginaAtendimentos .table-container td:nth-child(9) {
+  width: 4% !important;
+  text-align: center;
+}
+#paginaAtendimentos .table-container th:nth-child(10),
+#paginaAtendimentos .table-container td:nth-child(10) { width: 8% !important; }
+#paginaAtendimentos .table-container th:nth-child(11),
+#paginaAtendimentos .table-container td:nth-child(11) { width: 10% !important; }
+#paginaAtendimentos .table-container th:nth-child(12),
+#paginaAtendimentos .table-container td:nth-child(12) { width: 12% !important; }
+#paginaAtendimentos .table-container th:nth-child(13),
+#paginaAtendimentos .table-container td:nth-child(13) {
+  width: 6% !important;
+  text-align: center;
 }

@@ -688,7 +688,7 @@ export default function App() {
                   </option>
 
                   <option value="Chatmix">
-                    Chatmix
+                    ChatISP
                   </option>
 
                   <option value="Ligação">
@@ -711,6 +711,34 @@ export default function App() {
                     Resolvido
                   </option>
 
+                  <option value="Resolvido internamente">
+                    Resolvido internamente
+                  </option>
+
+                  <option value="Resolvido parcialmente">
+                    Resolvido parcialmente
+                  </option>
+
+                </select>
+              </div>
+
+              <div className="campo">
+                <label>
+                  Ordem de serviço (OS)
+                </label>
+
+                <select id="filtroOS">
+                  <option value="">
+                    Todas
+                  </option>
+
+                  <option value="true">
+                    Teve OS
+                  </option>
+
+                  <option value="false">
+                    Não teve OS
+                  </option>
                 </select>
               </div>
 
@@ -754,9 +782,10 @@ export default function App() {
                       <th>Cidade</th>
                       <th>Canal</th>
                       <th>Tipo de Serviço</th>
+                      <th>OS</th>
                       <th>Resolutividade</th>
                       <th>⭐ Pontos</th>
-                      <th>Conversa / Relato</th>
+                      <th>Protocolo / Relato</th>
                       <th>Ações</th>
                     </tr>
                   </thead>
@@ -1709,7 +1738,7 @@ export default function App() {
 
               <div className="relatorios-canal-item">
                 <span>
-                  Chatmix
+                  ChatISP
                 </span>
 
                 <strong id="relChatmix">
@@ -1757,7 +1786,7 @@ export default function App() {
                       <th>Total</th>
                       <th>Resolvidos</th>
                       <th>Não Resolvidos</th>
-                      <th>Chatmix</th>
+                      <th>ChatISP</th>
                       <th>Ligações</th>
                       <th>Resolutividade</th>
                     </tr>
@@ -2369,7 +2398,7 @@ export default function App() {
                   required
                 >
                   <option value="Chatmix">
-                    Chatmix
+                    ChatISP
                   </option>
 
                   <option value="Ligação">
@@ -2479,12 +2508,41 @@ export default function App() {
 
                 <select
                   id="resolutividade"
-                  required
+                  disabled
+                  aria-readonly="true"
                 >
-                  <option value="Resolvido">
-                    Resolvido
+                  <option value="">
+                    Definida pela OS
                   </option>
 
+                  <option value="Resolvido internamente">
+                    Resolvido internamente
+                  </option>
+
+                  <option value="Resolvido parcialmente">
+                    Resolvido parcialmente
+                  </option>
+
+                </select>
+              </div>
+
+              <div className="campo">
+                <label>
+                  Teve ordem de serviço (OS)? *
+                </label>
+
+                <select id="teveOS" required>
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="true">
+                    Sim
+                  </option>
+
+                  <option value="false">
+                    Não
+                  </option>
                 </select>
               </div>
 
@@ -2493,13 +2551,14 @@ export default function App() {
                 id="grupoLink"
               >
                 <label>
-                  Link da conversa no Chatmix *
+                  Protocolo do atendimento *
                 </label>
 
                 <input
-                  type="url"
-                  id="link"
-                  placeholder="https://srv6.chatmix.com.br/..."
+                  type="text"
+                  id="protocoloAtendimento"
+                  placeholder="Informe o protocolo do atendimento"
+                  required
                 />
               </div>
 

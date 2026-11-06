@@ -27,4 +27,10 @@ npm run build
 npm run preview
 ```
 
+## Publicar na Vercel
+
+Importe o repositório na Vercel usando a pasta raiz como diretório do projeto.
+O `vercel.json` configura o comando `npm run build` e a pasta de saída `dist`;
+não é necessário instalar dependências manualmente na Vercel.
+
 A conexão existente com o Supabase foi preservada na conversão.

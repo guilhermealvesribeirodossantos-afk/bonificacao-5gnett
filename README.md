@@ -49,3 +49,9 @@ O protocolo é salvo no campo de texto já existente e aparece na lista sem link
 A resolutividade é definida automaticamente pela resposta de OS: sem OS fica
 “Resolvido internamente”; com OS fica “Resolvido parcialmente”. Os indicadores
 consideram apenas “Resolvido” e “Resolvido internamente” como resolvidos.
+
+Na lista de atendimentos, os indicadores de OS mostram os totais com e sem OS
+após os demais filtros, sem incluir registros antigos cuja informação de OS
+está vazia. O filtro de clientes recorrentes considera recorrente o código de
+cliente com mais de um atendimento registrado; o indicador conta clientes
+únicos recorrentes entre os resultados filtrados.

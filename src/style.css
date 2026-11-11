@@ -3385,7 +3385,7 @@ footer {
 /* Barra de filtros mais compacta */
 #paginaAtendimentos .filtros-operacionais {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr 1.2fr 1.25fr auto auto;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) auto auto;
   gap: 10px;
   align-items: end;
   padding: 13px 14px;
@@ -3426,6 +3426,39 @@ footer {
   font-size: 10px;
 }
 
+#paginaAtendimentos .indicadores-atendimentos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+#paginaAtendimentos .indicador-atendimentos {
+  display: flex;
+  min-height: 66px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, .075);
+  border-radius: 7px;
+  background: #090b0d;
+}
+
+#paginaAtendimentos .indicador-atendimentos span {
+  color: #8a949e;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+#paginaAtendimentos .indicador-atendimentos strong {
+  color: #e9ebed;
+  font-size: 20px;
+  line-height: 1;
+}
+
 /* Cabeçalho dos registros */
 #paginaAtendimentos .atendimentos {
   margin-top: 0;
@@ -3449,6 +3482,22 @@ footer {
 #paginaAtendimentos #contadorRegistros {
   color: #66707a;
   font-size: 9px;
+}
+
+@media (max-width: 900px) {
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #paginaAtendimentos .indicadores-atendimentos {
+    grid-template-columns: 1fr;
+  }
 }
 
 #paginaAtendimentos .section-header .btn-novo {

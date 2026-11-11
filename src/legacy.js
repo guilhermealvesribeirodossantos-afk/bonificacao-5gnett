@@ -144,7 +144,8 @@ function filtrosTabelaAtivos() {
     $("filtroAtendente")?.value ||
     $("filtroCanal")?.value ||
     $("filtroResolutividade")?.value ||
-    $("filtroOS")?.value
+    $("filtroOS")?.value ||
+    $("filtroClienteRecorrente")?.value
   );
 }
 
@@ -801,7 +802,20 @@ function fecharModal() {
   sincronizarServico("");
 }
 
-function obterFiltrados() {
+function obterBaseAtendimentos() {
+  return atendimentosAnaliticos.length || !atendimentos.length
+    ? atendimentosAnaliticos
+    : atendimentos;
+}
+
+function chaveCliente(item) {
+  return String(item.codigo || "").trim().toLowerCase();
+}
+
+function obterFiltrados({
+  ignorarOS = false,
+  ignorarFiltroRecorrencia = false
+} = {}) {
   const pesquisa = $("pesquisa").value.trim().toLowerCase();
   const dataInicial = $("dataInicial").value;
   const dataFinal = $("dataFinal").value;
@@ -809,11 +823,20 @@ function obterFiltrados() {
   const canal = $("filtroCanal").value;
   const resolutividade = $("filtroResolutividade").value;
   const teveOS = $("filtroOS").value;
+  const filtroClienteRecorrente =
+    $("filtroClienteRecorrente").value;
+  const base = obterBaseAtendimentos();
+  const atendimentosPorCliente = new Map();
 
-  const base =
-    atendimentosAnaliticos.length || !atendimentos.length
-      ? atendimentosAnaliticos
-      : atendimentos;
+  base.forEach(item => {
+    const codigo = chaveCliente(item);
+    if (codigo) {
+      atendimentosPorCliente.set(
+        codigo,
+        (atendimentosPorCliente.get(codigo) || 0) + 1
+      );
+    }
+  });
 
   return base.filter(item => {
     const texto =
@@ -826,10 +849,54 @@ function obterFiltrados() {
     if (atendente && item.atendente !== atendente) return false;
     if (canal && item.canal !== canal) return false;
     if (resolutividade && item.resolutividade !== resolutividade) return false;
-    if (teveOS && String(item.teve_os) !== teveOS) return false;
+    if (!ignorarOS && teveOS && String(item.teve_os) !== teveOS) return false;
+    if (
+      !ignorarFiltroRecorrencia &&
+      filtroClienteRecorrente === "recorrente"
+    ) {
+      const codigo = chaveCliente(item);
+      if (!codigo || (atendimentosPorCliente.get(codigo) || 0) < 2) {
+        return false;
+      }
+    }
 
     return true;
   });
+}
+
+function atualizarIndicadoresAtendimentos() {
+  const filtrados = obterFiltrados({
+    ignorarOS: true,
+    ignorarFiltroRecorrencia: true
+  });
+  const base = obterBaseAtendimentos();
+  const atendimentosPorCliente = new Map();
+
+  base.forEach(item => {
+    const codigo = chaveCliente(item);
+    if (codigo) {
+      atendimentosPorCliente.set(
+        codigo,
+        (atendimentosPorCliente.get(codigo) || 0) + 1
+      );
+    }
+  });
+
+  const clientesRecorrentes = new Set(
+    filtrados
+      .filter(item => {
+        const codigo = chaveCliente(item);
+        return codigo && (atendimentosPorCliente.get(codigo) || 0) > 1;
+      })
+      .map(chaveCliente)
+  );
+
+  $("totalAtendimentosComOS").textContent =
+    filtrados.filter(item => item.teve_os === true).length;
+  $("totalAtendimentosSemOS").textContent =
+    filtrados.filter(item => item.teve_os === false).length;
+  $("totalClientesRecorrentes").textContent =
+    clientesRecorrentes.size;
 }
 
 function atualizarCards() {
@@ -1027,6 +1094,8 @@ async function salvarAvaliacaoAtendimento() {
 }
 
 function renderizarTabela() {
+  atualizarIndicadoresAtendimentos();
+
   const usandoServidor =
     paginacaoServidorAtiva &&
     !filtrosTabelaAtivos();
@@ -1626,6 +1695,7 @@ $("btnLimpar").addEventListener("click", () => {
   $("filtroCanal").value = "";
   $("filtroResolutividade").value = "";
   $("filtroOS").value = "";
+  $("filtroClienteRecorrente").value = "";
 
   paginaAtendimentosAtual = 1;
   carregarPaginaAtendimentosServidor();

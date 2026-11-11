@@ -746,6 +746,22 @@ export default function App() {
                 </select>
               </div>
 
+              <div className="campo">
+                <label>
+                  Cliente
+                </label>
+
+                <select id="filtroClienteRecorrente">
+                  <option value="">
+                    Todos
+                  </option>
+
+                  <option value="recorrente">
+                    Recorrentes
+                  </option>
+                </select>
+              </div>
+
               <button
                 className="btn-filtrar"
                 id="btnFiltrar"
@@ -759,6 +775,26 @@ export default function App() {
               >
                 Limpar
               </button>
+            </section>
+
+            <section
+              className="indicadores-atendimentos"
+              aria-label="Resumo dos atendimentos filtrados"
+            >
+              <article className="indicador-atendimentos">
+                <span>Atendimentos com OS</span>
+                <strong id="totalAtendimentosComOS">0</strong>
+              </article>
+
+              <article className="indicador-atendimentos">
+                <span>Atendimentos sem OS</span>
+                <strong id="totalAtendimentosSemOS">0</strong>
+              </article>
+
+              <article className="indicador-atendimentos">
+                <span>Clientes recorrentes</span>
+                <strong id="totalClientesRecorrentes">0</strong>
+              </article>
             </section>
 
             <section className="atendimentos">

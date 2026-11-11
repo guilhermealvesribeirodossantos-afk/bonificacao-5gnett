@@ -9,7 +9,6 @@ import { autoTable } from "jspdf-autotable";
 
 const STORAGE_KEY = "5gnett_atendimentos_v2";
 const LEGACY_KEY = "5gnett_atendimentos_v1";
-const MIN_ATENDIMENTOS_CLIENTE_RECORRENTE = 4;
 
 const SUPABASE_URL = "https://zgeenyqdbtxzkorfkmnq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_H2YIRxy8bVpA6UhUx2G2Yg_unN0ziVe";
@@ -145,8 +144,7 @@ function filtrosTabelaAtivos() {
     $("filtroAtendente")?.value ||
     $("filtroCanal")?.value ||
     $("filtroResolutividade")?.value ||
-    $("filtroOS")?.value ||
-    $("filtroClienteRecorrente")?.value
+    $("filtroOS")?.value
   );
 }
 
@@ -803,20 +801,7 @@ function fecharModal() {
   sincronizarServico("");
 }
 
-function obterBaseAtendimentos() {
-  return atendimentosAnaliticos.length || !atendimentos.length
-    ? atendimentosAnaliticos
-    : atendimentos;
-}
-
-function chaveCliente(item) {
-  return String(item.codigo || "").trim().toLowerCase();
-}
-
-function obterFiltrados({
-  ignorarOS = false,
-  ignorarFiltroRecorrencia = false
-} = {}) {
+function obterFiltrados() {
   const pesquisa = $("pesquisa").value.trim().toLowerCase();
   const dataInicial = $("dataInicial").value;
   const dataFinal = $("dataFinal").value;
@@ -824,20 +809,11 @@ function obterFiltrados({
   const canal = $("filtroCanal").value;
   const resolutividade = $("filtroResolutividade").value;
   const teveOS = $("filtroOS").value;
-  const filtroClienteRecorrente =
-    $("filtroClienteRecorrente").value;
-  const base = obterBaseAtendimentos();
-  const atendimentosPorCliente = new Map();
 
-  base.forEach(item => {
-    const codigo = chaveCliente(item);
-    if (codigo) {
-      atendimentosPorCliente.set(
-        codigo,
-        (atendimentosPorCliente.get(codigo) || 0) + 1
-      );
-    }
-  });
+  const base =
+    atendimentosAnaliticos.length || !atendimentos.length
+      ? atendimentosAnaliticos
+      : atendimentos;
 
   return base.filter(item => {
     const texto =
@@ -850,62 +826,10 @@ function obterFiltrados({
     if (atendente && item.atendente !== atendente) return false;
     if (canal && item.canal !== canal) return false;
     if (resolutividade && item.resolutividade !== resolutividade) return false;
-    if (!ignorarOS && teveOS && String(item.teve_os) !== teveOS) return false;
-    if (
-      !ignorarFiltroRecorrencia &&
-      filtroClienteRecorrente === "recorrente"
-    ) {
-      const codigo = chaveCliente(item);
-      if (
-        !codigo ||
-        (atendimentosPorCliente.get(codigo) || 0) <
-          MIN_ATENDIMENTOS_CLIENTE_RECORRENTE
-      ) {
-        return false;
-      }
-    }
+    if (teveOS && String(item.teve_os) !== teveOS) return false;
 
     return true;
   });
-}
-
-function atualizarIndicadoresAtendimentos() {
-  const filtrados = obterFiltrados({
-    ignorarOS: true,
-    ignorarFiltroRecorrencia: true
-  });
-  const base = obterBaseAtendimentos();
-  const atendimentosPorCliente = new Map();
-
-  base.forEach(item => {
-    const codigo = chaveCliente(item);
-    if (codigo) {
-      atendimentosPorCliente.set(
-        codigo,
-        (atendimentosPorCliente.get(codigo) || 0) + 1
-      );
-    }
-  });
-
-  const clientesRecorrentes = new Set(
-    filtrados
-      .filter(item => {
-        const codigo = chaveCliente(item);
-        return (
-          codigo &&
-          (atendimentosPorCliente.get(codigo) || 0) >=
-            MIN_ATENDIMENTOS_CLIENTE_RECORRENTE
-        );
-      })
-      .map(chaveCliente)
-  );
-
-  $("totalAtendimentosComOS").textContent =
-    filtrados.filter(item => item.teve_os === true).length;
-  $("totalAtendimentosSemOS").textContent =
-    filtrados.filter(item => item.teve_os === false).length;
-  $("totalClientesRecorrentes").textContent =
-    clientesRecorrentes.size;
 }
 
 function atualizarCards() {
@@ -1103,8 +1027,6 @@ async function salvarAvaliacaoAtendimento() {
 }
 
 function renderizarTabela() {
-  atualizarIndicadoresAtendimentos();
-
   const usandoServidor =
     paginacaoServidorAtiva &&
     !filtrosTabelaAtivos();
@@ -1704,7 +1626,6 @@ $("btnLimpar").addEventListener("click", () => {
   $("filtroCanal").value = "";
   $("filtroResolutividade").value = "";
   $("filtroOS").value = "";
-  $("filtroClienteRecorrente").value = "";
 
   paginaAtendimentosAtual = 1;
   carregarPaginaAtendimentosServidor();

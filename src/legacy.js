@@ -9,6 +9,7 @@ import { autoTable } from "jspdf-autotable";
 
 const STORAGE_KEY = "5gnett_atendimentos_v2";
 const LEGACY_KEY = "5gnett_atendimentos_v1";
+const MIN_ATENDIMENTOS_CLIENTE_RECORRENTE = 4;
 
 const SUPABASE_URL = "https://zgeenyqdbtxzkorfkmnq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_H2YIRxy8bVpA6UhUx2G2Yg_unN0ziVe";
@@ -855,7 +856,11 @@ function obterFiltrados({
       filtroClienteRecorrente === "recorrente"
     ) {
       const codigo = chaveCliente(item);
-      if (!codigo || (atendimentosPorCliente.get(codigo) || 0) < 2) {
+      if (
+        !codigo ||
+        (atendimentosPorCliente.get(codigo) || 0) <
+          MIN_ATENDIMENTOS_CLIENTE_RECORRENTE
+      ) {
         return false;
       }
     }
@@ -886,7 +891,11 @@ function atualizarIndicadoresAtendimentos() {
     filtrados
       .filter(item => {
         const codigo = chaveCliente(item);
-        return codigo && (atendimentosPorCliente.get(codigo) || 0) > 1;
+        return (
+          codigo &&
+          (atendimentosPorCliente.get(codigo) || 0) >=
+            MIN_ATENDIMENTOS_CLIENTE_RECORRENTE
+        );
       })
       .map(chaveCliente)
   );

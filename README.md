@@ -53,5 +53,5 @@ consideram apenas “Resolvido” e “Resolvido internamente” como resolvidos
 Na lista de atendimentos, os indicadores de OS mostram os totais com e sem OS
 após os demais filtros, sem incluir registros antigos cuja informação de OS
 está vazia. O filtro de clientes recorrentes considera recorrente o código de
-cliente com mais de um atendimento registrado; o indicador conta clientes
-únicos recorrentes entre os resultados filtrados.
+cliente com quatro ou mais atendimentos registrados; o indicador conta
+clientes únicos recorrentes entre os resultados filtrados.

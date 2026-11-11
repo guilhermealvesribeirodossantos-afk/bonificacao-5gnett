@@ -6,6 +6,7 @@ import perfil from "./assets/perfil.png";
 
 export default function App() {
   const [gerenciaVisualLiberada, setGerenciaVisualLiberada] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicoAberto, setServicoAberto] = useState(false);
   const [servicoBusca, setServicoBusca] = useState("");
   const [servicoSelecionado, setServicoSelecionado] = useState("");
@@ -50,6 +51,26 @@ export default function App() {
       ),
     }))
     .filter((grupo) => grupo.opcoes.length > 0);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const fecharComEscape = (evento) => {
+      if (evento.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", fecharComEscape);
+
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      window.removeEventListener("keydown", fecharComEscape);
+    };
+  }, [mobileMenuOpen]);
 
   const ajustarPosicaoServico = () => {
     const elemento = servicoComboboxRef.current;
@@ -190,8 +211,12 @@ export default function App() {
 
   return (
     <>
-      <div className="app">
-        <aside className="sidebar">
+      <div className={`app${mobileMenuOpen ? " menu-mobile-aberto" : ""}`}>
+        <aside
+          className={`sidebar${mobileMenuOpen ? " sidebar-mobile-aberta" : ""}`}
+          id="appSidebar"
+          aria-label="Menu principal"
+        >
           <div className="logo logo-corporativa-v2">
             <div className="logo-marca-v2">
               <img src={logo} alt="5GNETT" />
@@ -208,7 +233,10 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="menu menu-profissional-v3">
+          <nav
+            className="menu menu-profissional-v3"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             <button className="menu-item active" id="menuInicio">
               <span className="menu-icone-v3 menu-home-v3">⌂</span>
               <strong>Início</strong>
@@ -281,9 +309,29 @@ export default function App() {
           </div>
         </aside>
 
+        {mobileMenuOpen && (
+          <button
+            className="menu-mobile-overlay"
+            type="button"
+            aria-label="Fechar menu"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
         <main className="main">
           <header className="topbar topbar-corporativa">
-            {/* BOTÃO DE TEMA */}
+            <button
+              className="mobile-menu-toggle"
+              type="button"
+              aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-controls="appSidebar"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((aberto) => !aberto)}
+            >
+              <span aria-hidden="true">
+                {mobileMenuOpen ? "×" : "☰"}
+              </span>
+            </button>
 
             <button
               className="btn-tema"
@@ -600,6 +648,10 @@ export default function App() {
           >
             <section className="page-header">
               <div>
+                <span className="atendimentos-eyebrow">
+                  Central operacional / Suporte técnico
+                </span>
+
                 <h2>
                   📝 Atendimentos
                 </h2>
@@ -792,7 +844,7 @@ export default function App() {
               </article>
 
               <article className="indicador-atendimentos">
-                <span>Clientes recorrentes</span>
+                <span>Clientes recorrentes (4+)</span>
                 <strong id="totalClientesRecorrentes">0</strong>
               </article>
             </section>

@@ -13409,3 +13409,750 @@ body.tema-claro .historico-competencia-v1 button[onclick*="baixar"] {
   width: 6% !important;
   text-align: center;
 }
+
+/* =========================================================
+   ATENDIMENTOS — REFINAMENTO VISUAL
+   ========================================================= */
+
+#paginaAtendimentos .page-header {
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0 24px;
+}
+
+#paginaAtendimentos .page-header > div:first-child {
+  min-width: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr);
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 8px;
+}
+
+#paginaAtendimentos .atendimentos-eyebrow {
+  grid-column: 1 / -1;
+  color: #43a9ff;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+#paginaAtendimentos .page-header h2 {
+  margin: 0;
+  font-size: clamp(25px, 2.4vw, 34px);
+  line-height: 1.1;
+}
+
+#paginaAtendimentos .busca-global {
+  width: 100%;
+  max-width: 540px;
+  min-height: 44px;
+  margin: 0;
+  border: 1px solid rgba(107, 151, 185, .32);
+  border-radius: 12px;
+  background: rgba(11, 28, 42, .72);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .12);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#paginaAtendimentos .busca-global:focus-within {
+  border-color: #168df1;
+  box-shadow: 0 0 0 3px rgba(22, 141, 241, .14);
+}
+
+#paginaAtendimentos .busca-global input {
+  min-width: 0;
+  height: 42px;
+  font-size: 13px;
+}
+
+#paginaAtendimentos .page-header p {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#paginaAtendimentos #btnNovoAtendimento {
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 11px !important;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 9px 22px rgba(0, 116, 224, .24);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+#paginaAtendimentos #btnNovoAtendimento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 13px 27px rgba(0, 116, 224, .32);
+}
+
+#paginaAtendimentos .filtros-operacionais {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) auto auto;
+  gap: 13px;
+  padding: 18px;
+  margin: 0 0 18px;
+  border-radius: 15px !important;
+  background: linear-gradient(145deg, rgba(12, 31, 47, .96), rgba(7, 19, 30, .96)) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .14), inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+#paginaAtendimentos .filtros-operacionais .campo {
+  min-width: 0;
+  gap: 7px;
+}
+
+#paginaAtendimentos .filtros-operacionais label {
+  color: #91a9bc;
+  font-size: 9px;
+  letter-spacing: .55px;
+}
+
+#paginaAtendimentos .filtros-operacionais input,
+#paginaAtendimentos .filtros-operacionais select {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 11px;
+  border: 1px solid rgba(108, 146, 174, .3);
+  border-radius: 9px;
+  background-color: rgba(3, 14, 23, .72) !important;
+  color: #e4edf5;
+  font-size: 12px;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+#paginaAtendimentos .filtros-operacionais input:focus,
+#paginaAtendimentos .filtros-operacionais select:focus {
+  border-color: #168df1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(22, 141, 241, .13);
+}
+
+#paginaAtendimentos .filtros-operacionais .btn-filtrar,
+#paginaAtendimentos .filtros-operacionais .btn-limpar {
+  min-height: 42px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 800;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+#paginaAtendimentos .filtros-operacionais .btn-filtrar:hover,
+#paginaAtendimentos .filtros-operacionais .btn-limpar:hover {
+  transform: translateY(-1px);
+}
+
+#paginaAtendimentos .indicadores-atendimentos {
+  gap: 14px;
+  margin: 0 0 26px;
+}
+
+#paginaAtendimentos .indicador-atendimentos {
+  position: relative;
+  min-height: 106px;
+  gap: 10px;
+  padding: 20px 22px;
+  overflow: hidden;
+  border: 1px solid rgba(93, 135, 165, .25);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(19, 133, 220, .16), transparent 42%),
+    linear-gradient(135deg, rgba(13, 33, 49, .98), rgba(7, 18, 28, .98));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .14), inset 0 1px 0 rgba(255,255,255,.035);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+#paginaAtendimentos .indicador-atendimentos::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  content: "";
+  background: #168df1;
+}
+
+#paginaAtendimentos .indicador-atendimentos:nth-child(2)::before {
+  background: #f0ad3d;
+}
+
+#paginaAtendimentos .indicador-atendimentos:nth-child(3)::before {
+  background: #26c58a;
+}
+
+#paginaAtendimentos .indicador-atendimentos:hover {
+  transform: translateY(-2px);
+  border-color: rgba(93, 157, 203, .45);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .2);
+}
+
+#paginaAtendimentos .indicador-atendimentos span {
+  color: #a7bbcd;
+  font-size: 10px;
+  letter-spacing: .8px;
+}
+
+#paginaAtendimentos .indicador-atendimentos strong {
+  color: #f6f9fc;
+  font-size: 30px;
+  font-weight: 850;
+  letter-spacing: -.8px;
+}
+
+#paginaAtendimentos .section-header {
+  min-height: 58px;
+  margin: 0 0 12px;
+  padding: 0 2px;
+}
+
+#paginaAtendimentos .section-header h3 {
+  margin-bottom: 5px;
+  font-size: 19px !important;
+}
+
+#paginaAtendimentos #contadorRegistros {
+  color: #91a5b6;
+  font-size: 11px;
+}
+
+#paginaAtendimentos .table-container {
+  max-width: 100%;
+  overflow-x: auto !important;
+  border: 1px solid rgba(93, 135, 165, .3) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .16) !important;
+  scrollbar-color: rgba(94, 132, 160, .6) transparent;
+  scrollbar-width: thin;
+}
+
+#paginaAtendimentos .table-container table {
+  min-width: 1260px !important;
+  table-layout: fixed;
+}
+
+#paginaAtendimentos .table-container thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#paginaAtendimentos .table-container th {
+  height: 48px;
+  padding: 12px 9px !important;
+  font-size: 9px !important;
+  letter-spacing: .65px;
+}
+
+#paginaAtendimentos .table-container td {
+  height: 64px;
+  padding: 11px 9px !important;
+  font-size: 11px !important;
+}
+
+#paginaAtendimentos .table-container tbody tr {
+  transition: background .16s ease, box-shadow .16s ease;
+}
+
+body.tema-claro #paginaAtendimentos .atendimentos-eyebrow {
+  color: #0876cd;
+}
+
+body.tema-claro #paginaAtendimentos .busca-global {
+  border-color: #d7e3ed;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 5px 16px rgba(34, 69, 98, .055);
+}
+
+body.tema-claro #paginaAtendimentos .busca-global input {
+  color: #1b2d3e;
+}
+
+body.tema-claro #paginaAtendimentos .busca-global input::placeholder {
+  color: #8a9aaa;
+}
+
+body.tema-claro #paginaAtendimentos .filtros-operacionais {
+  border-color: #dbe6ef !important;
+  background: linear-gradient(145deg, #ffffff, #f8fbfd) !important;
+  box-shadow: 0 10px 26px rgba(35, 67, 94, .07), inset 0 1px 0 #fff;
+}
+
+body.tema-claro #paginaAtendimentos .filtros-operacionais label {
+  color: #60768a;
+}
+
+body.tema-claro #paginaAtendimentos .filtros-operacionais input,
+body.tema-claro #paginaAtendimentos .filtros-operacionais select {
+  border-color: #d4e0e9;
+  background-color: #fff !important;
+  color: #25394c;
+}
+
+body.tema-claro #paginaAtendimentos .indicador-atendimentos {
+  border-color: #dce7ef;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(27, 139, 227, .065), transparent 42%),
+    linear-gradient(135deg, #ffffff, #f8fbfd);
+  box-shadow: 0 9px 22px rgba(35, 67, 94, .065), inset 0 1px 0 #fff;
+}
+
+body.tema-claro #paginaAtendimentos .indicador-atendimentos:hover {
+  border-color: #bfd8e9;
+  box-shadow: 0 13px 27px rgba(35, 67, 94, .1);
+}
+
+body.tema-claro #paginaAtendimentos .indicador-atendimentos span {
+  color: #647a8f;
+}
+
+body.tema-claro #paginaAtendimentos .indicador-atendimentos strong {
+  color: #142b40;
+}
+
+body.tema-claro #paginaAtendimentos #contadorRegistros {
+  color: #72869a;
+}
+
+body.tema-claro #paginaAtendimentos .table-container {
+  border-color: #d8e3ec !important;
+  background: #fff !important;
+  box-shadow: 0 12px 30px rgba(35, 67, 94, .07) !important;
+}
+
+@media (max-width: 1320px) {
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #paginaAtendimentos .filtros-operacionais .btn-filtrar,
+  #paginaAtendimentos .filtros-operacionais .btn-limpar {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1180px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-width: 0 !important;
+  }
+
+  #root .app {
+    width: 100%;
+    grid-template-columns: 250px minmax(0, 1fr) !important;
+  }
+
+  .app .sidebar {
+    width: 250px !important;
+    min-width: 0 !important;
+  }
+
+  .main {
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #paginaAtendimentos .page-header {
+    align-items: flex-start;
+  }
+
+  #paginaAtendimentos .page-header > div:first-child {
+    grid-template-columns: 1fr;
+  }
+
+  #paginaAtendimentos .atendimentos-eyebrow,
+  #paginaAtendimentos .page-header p {
+    grid-column: 1;
+  }
+
+  #paginaAtendimentos .busca-global {
+    max-width: none;
+  }
+}
+
+@media (max-width: 760px) {
+  #paginaAtendimentos .page-header {
+    gap: 16px;
+    padding: 24px 0 18px;
+  }
+
+  #paginaAtendimentos #btnNovoAtendimento {
+    width: 100%;
+  }
+
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 15px;
+    border-radius: 13px !important;
+  }
+
+  #paginaAtendimentos .filtros-operacionais .btn-filtrar,
+  #paginaAtendimentos .filtros-operacionais .btn-limpar {
+    grid-column: span 1;
+  }
+
+  #paginaAtendimentos .indicadores-atendimentos {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos {
+    min-height: 90px;
+    padding: 16px;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos strong {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  #paginaAtendimentos .page-header {
+    flex-direction: column;
+  }
+
+  #paginaAtendimentos .page-header > div:first-child {
+    width: 100%;
+  }
+
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: 1fr;
+  }
+
+  #paginaAtendimentos .filtros-operacionais .btn-filtrar,
+  #paginaAtendimentos .filtros-operacionais .btn-limpar {
+    grid-column: 1;
+  }
+
+  #paginaAtendimentos .indicadores-atendimentos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   NAVEGAÇÃO MOBILE E CONTEÚDO COMPACTO
+   ========================================================= */
+
+.mobile-menu-toggle,
+.menu-mobile-overlay {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-width: 0 !important;
+    overflow-x: hidden;
+  }
+
+  .app {
+    display: block !important;
+    width: 100%;
+    min-width: 0 !important;
+    overflow-x: clip;
+  }
+
+  .sidebar,
+  .sidebar.sidebar-retratil,
+  .sidebar.sidebar-retratil.aberta,
+  .sidebar.sidebar-retratil.fechada {
+    position: fixed !important;
+    z-index: 1401 !important;
+    inset: 0 auto 0 0 !important;
+    width: min(86vw, 310px) !important;
+    min-width: 0 !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    min-height: 0 !important;
+    padding: 18px 14px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border-right: 1px solid rgba(73, 132, 174, .38) !important;
+    border-bottom: 0 !important;
+    box-shadow: 16px 0 48px rgba(0, 0, 0, .28) !important;
+    transform: translateX(-105%) !important;
+    visibility: hidden;
+    transition: transform .24s ease, visibility 0s linear .24s !important;
+  }
+
+  .sidebar.sidebar-mobile-aberta {
+    transform: translateX(0) !important;
+    visibility: visible;
+    transition: transform .24s ease, visibility 0s !important;
+  }
+
+  .sidebar-puxador {
+    display: none !important;
+  }
+
+  .sidebar .logo.logo-corporativa-v2 {
+    width: 100% !important;
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    margin: 0 0 16px !important;
+    padding: 6px 3px 17px !important;
+    border-bottom: 1px solid rgba(81, 128, 160, .23);
+  }
+
+  .sidebar .logo-marca-v2 {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+  }
+
+  .sidebar .menu-profissional-v3 {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    padding: 0 !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-item {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 49px !important;
+    flex: 0 0 auto !important;
+    grid-template-columns: 36px minmax(0, 1fr) auto !important;
+    column-gap: 10px !important;
+    padding: 0 11px !important;
+    border-radius: 10px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-item strong {
+    min-width: 0;
+    overflow: hidden !important;
+    font-size: 13px !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-icone-v3 {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 19px !important;
+  }
+
+  .sidebar .menu-divisor-gerencia-v3 {
+    margin: 7px 5px 3px !important;
+    padding-top: 13px !important;
+  }
+
+  .sidebar .menu-gerencia > .menu-acoes-v3 {
+    width: 44px !important;
+    min-width: 44px !important;
+  }
+
+  .sidebar .menu-profissional-v3 .menu-gerencia::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .sidebar .sidebar-footer-profissional-v3 {
+    display: grid !important;
+    width: 100% !important;
+    min-height: 76px !important;
+    margin: 16px 0 0 !important;
+    padding: 12px !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 8px !important;
+  }
+
+  .sidebar .sidebar-footer-slogan-v3 {
+    display: none !important;
+  }
+
+  .main {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 16px 24px !important;
+  }
+
+  .topbar.topbar-corporativa {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 66px !important;
+    height: 66px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .mobile-menu-toggle {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgba(95, 137, 166, .35);
+    border-radius: 11px;
+    background: rgba(15, 34, 49, .82);
+    color: #e8f2f9;
+    font-size: 21px;
+    line-height: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+  }
+
+  .mobile-menu-toggle:focus-visible {
+    outline: 3px solid rgba(22, 141, 241, .42);
+    outline-offset: 2px;
+  }
+
+  .btn-tema {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+  }
+
+  .usuario-premium-v6 {
+    min-width: 0 !important;
+    margin-left: auto !important;
+    gap: 0 !important;
+  }
+
+  .usuario-identidade-v6 {
+    display: none !important;
+  }
+
+  .btn-login-gerencia-premium-v6 {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    border-radius: 10px !important;
+  }
+
+  .btn-login-gerencia-premium-v6 .admin-coroa-v6 {
+    width: auto !important;
+    flex: 0 0 auto !important;
+    font-size: 20px !important;
+  }
+
+  .btn-sair-gerencia:not([hidden]) {
+    min-height: 38px !important;
+    padding: 0 10px !important;
+    font-size: 10px !important;
+  }
+
+  .menu-mobile-overlay {
+    position: fixed;
+    z-index: 1400;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: rgba(2, 9, 15, .58);
+    backdrop-filter: blur(2px);
+  }
+
+  body.tema-claro .mobile-menu-toggle {
+    border-color: #d7e3ed;
+    background: #fff;
+    color: #24445e;
+    box-shadow: 0 4px 12px rgba(38, 68, 91, .08);
+  }
+
+  body.tema-claro .sidebar {
+    background: linear-gradient(180deg, #fff, #f6f9fc) !important;
+    border-right-color: #dce6ee !important;
+    box-shadow: 16px 0 48px rgba(32, 57, 78, .16) !important;
+  }
+
+  body.tema-claro .menu-mobile-overlay {
+    background: rgba(19, 39, 56, .34);
+  }
+}
+
+@media (max-width: 560px) {
+  #paginaAtendimentos .filtros-operacionais {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 13px !important;
+  }
+
+  #paginaAtendimentos .filtros-operacionais .campo {
+    min-width: 0;
+  }
+
+  #paginaAtendimentos .filtros-operacionais input,
+  #paginaAtendimentos .filtros-operacionais select {
+    height: 40px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  #paginaAtendimentos .filtros-operacionais .btn-filtrar,
+  #paginaAtendimentos .filtros-operacionais .btn-limpar {
+    grid-column: span 1 !important;
+    min-width: 0;
+    padding: 0 8px;
+  }
+
+  #paginaAtendimentos .indicadores-atendimentos {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos {
+    min-width: 0;
+    min-height: 82px;
+    padding: 13px 12px;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos span {
+    font-size: 8px;
+    letter-spacing: .45px;
+    line-height: 1.35;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos strong {
+    font-size: 24px;
+  }
+
+  #paginaAtendimentos .indicador-atendimentos:last-child {
+    grid-column: 1 / -1;
+    min-height: 70px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #paginaAtendimentos .page-header h2 {
+    font-size: 26px;
+  }
+
+  #paginaAtendimentos .page-header p {
+    font-size: 12px;
+  }
+
+  #paginaAtendimentos .table-container table {
+    min-width: 1100px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .mobile-menu-toggle,
+  #paginaAtendimentos .indicador-atendimentos {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
